@@ -94,7 +94,7 @@
 								"exec": [
 									"pm.test(\"For 400 Bad Request Invalid ProgramName\",function()\r",
 									"{\r",
-									"    pm.expect(pm.response.text()).to.include(\"program with this: 2345not found\");\r",
+									"   pm.response.to.have.status(400);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -2341,193 +2341,193 @@
 	],
 	"variable": [
 		{
-			"id": "0849b205-4af9-4a21-910a-b0719d770aa2",
+			"id": "2886bcab-46f0-4f25-8609-f8766b9cea49",
 			"key": "user_FirstName",
 			"value": ""
 		},
 		{
-			"id": "0340337b-6e06-402f-a680-8738f4dbe8de",
+			"id": "b1789aa5-1362-445e-9ea6-ae3d6f9b04f8",
 			"key": "user_LastName",
 			"value": ""
 		},
 		{
-			"id": "6343329f-b4cc-4c61-bfa7-89189904579a",
+			"id": "de04ed72-e4fd-4683-b9eb-d95abf31e33f",
 			"key": "Role_Id",
 			"value": ""
 		},
 		{
-			"id": "213f9b70-675c-4a7d-96e8-3301f484b776",
+			"id": "11e25056-de55-4950-88ca-9f26f99e7f5c",
 			"key": "user_PhoneNumber",
 			"value": ""
 		},
 		{
-			"id": "c2507e9a-feb8-4e01-8a06-4d7d5bde16fc",
+			"id": "3162e691-fb77-4ee4-81f1-f1bad037ff87",
 			"key": "user_RoleStatus",
 			"value": ""
 		},
 		{
-			"id": "e608299b-0fb0-4729-8d50-9f98d71d0115",
+			"id": "2aa6fc6d-dd80-4f72-af82-06512a89e53f",
 			"key": "user_TimeZone",
 			"value": ""
 		},
 		{
-			"id": "6a355f11-9a43-4398-9747-ba7a3b6725be",
+			"id": "4c1e128e-34ae-45ec-8c48-f4557f97d627",
 			"key": "user_VisaStatus",
 			"value": ""
 		},
 		{
-			"id": "2e39c2c1-af81-4228-8417-c38d6c957e86",
+			"id": "6f0b3e50-f6fe-40ec-b4dc-5b423ecc681b",
 			"key": "user_EduPg",
 			"value": ""
 		},
 		{
-			"id": "8bbd1b7c-9988-4079-92db-8173e2dd2817",
+			"id": "54a2ea60-8f68-47e4-befd-bce10f08ae32",
 			"key": "user_EduUg",
 			"value": ""
 		},
 		{
-			"id": "680d406a-75a1-4586-9714-fb5759c645c6",
+			"id": "16ae1fc7-f36a-407c-8ec6-62ddc98589d2",
 			"key": "assignmentdescription",
 			"value": ""
 		},
 		{
-			"id": "fc06cf4b-1bf8-4e0c-9e61-2ed7172ce304",
+			"id": "c271103e-5211-458f-9cf2-d3dfb7ff721d",
 			"key": "assignment_name",
 			"value": ""
 		},
 		{
-			"id": "315940f7-1e24-482b-a7a9-4d307a8e1389",
+			"id": "07fec36a-c29e-4eb0-86f5-81f28ad87d22",
 			"key": "batch_id",
 			"value": "",
 			"disabled": true
 		},
 		{
-			"id": "cbfb65c5-889f-40bb-8785-b6178e6f7d56",
+			"id": "468b9688-bdc7-49ad-b1fd-7db5b5a18cf4",
 			"key": "comments",
 			"value": ""
 		},
 		{
-			"id": "d830fd29-c92b-4dc8-8e1d-f71aa712523c",
+			"id": "23810284-00a5-4be8-a293-e00c6e8f4d4a",
 			"key": "duedate",
 			"value": ""
 		},
 		{
-			"id": "e1dd6c3d-bf06-46e2-bfbb-5288da87bc15",
+			"id": "4dc0b0ff-3d4e-4a59-b859-1f241b8b8e1d",
 			"key": "graderId",
 			"value": ""
 		},
 		{
-			"id": "a762b5fa-0c9a-4da3-b1a5-d51daf4ddf24",
+			"id": "44921ea7-a23f-4460-9244-9b299c00a0f8",
 			"key": "path1",
 			"value": ""
 		},
 		{
-			"id": "3ac5d2ab-be03-47af-bcde-82dc8f9448e7",
+			"id": "6a9b1071-b3c5-4296-9335-5d412a1a8b46",
 			"key": "path2",
 			"value": ""
 		},
 		{
-			"id": "3df4416f-d3d0-4df3-ad4a-7373eb9c02fe",
+			"id": "c19eb8fc-8767-495a-86e6-12602c8a3bd4",
 			"key": "path3",
 			"value": ""
 		},
 		{
-			"id": "55ee49fa-9237-4db7-9a8d-3b295691428f",
+			"id": "1760f76c-77ec-4fa6-8a11-7013334faedc",
 			"key": "path4",
 			"value": ""
 		},
 		{
-			"id": "897a306a-e9cb-41d0-8db9-31b64629fe0d",
+			"id": "cdb0a2da-9e3a-4b41-b587-37985d60a941",
 			"key": "path5",
 			"value": ""
 		},
 		{
-			"id": "ad1f6043-d74a-4b68-9cdc-6adaf4819520",
+			"id": "d990b875-8b2d-4a09-8681-6133d762cb67",
 			"key": "prog_name",
 			"value": ""
 		},
 		{
-			"id": "74225770-97a5-4ee3-834d-f974645cacb4",
+			"id": "4290f459-7985-4432-8157-61c618cf69be",
 			"key": "prog_desc",
 			"value": ""
 		},
 		{
-			"id": "bb96d14e-fe63-4cb8-8c1e-47f4b51ecfe1",
+			"id": "176aaca2-bd7a-4e9a-9d56-3562d6aaae49",
 			"key": "prog_status",
 			"value": ""
 		},
 		{
-			"id": "8d367f59-dd1e-41df-8cd1-1773c0dc3665",
+			"id": "cb806fdd-775e-41b3-bc1f-31639926d5ed",
 			"key": "batch_name",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "2e77ae48-cdc7-4346-a557-7a98429cbba4",
+			"id": "26a0156d-999d-41fa-97d2-f75f2167aeca",
 			"key": "batch_status",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "77f88abd-0dcd-435b-ac24-72e7d0acfa12",
+			"id": "c483826c-0363-40bd-ae71-b4e057d2c601",
 			"key": "noOf_classes",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "6dfc2ec4-22bb-4f16-a5b6-e347d8f4a850",
+			"id": "f0460185-d79b-4315-8355-5978c4b2c350",
 			"key": "serialNumber",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "8ffe82aa-c8d9-4d09-8c40-a39fa9874098",
+			"id": "595978a1-7dd6-4209-a1bf-be9832745e99",
 			"key": "batch_desc",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "191c99b3-ed49-46d8-8da0-562ac0d94d3c",
+			"id": "eb14bf72-f9ee-40b0-a5d7-4f589e1714ac",
 			"key": "Role_status",
 			"value": ""
 		},
 		{
-			"id": "0c51cac2-bf11-458a-9ab7-d45d61eaa5c4",
+			"id": "a13d28d0-3eae-435d-a618-57527888113c",
 			"key": "Phone_Number",
 			"value": ""
 		},
 		{
-			"id": "d99820a6-07e8-4cf1-820b-e45a38c23f54",
+			"id": "089de5e3-29da-42cf-9256-d2657a11764a",
 			"key": "submissiondescription",
 			"value": ""
 		},
 		{
-			"id": "a80f111e-283b-412c-89e6-f9bb134560d6",
+			"id": "6e4ef4a0-167f-4123-9a1c-775ac0c6b7d5",
 			"key": "subcomments",
 			"value": ""
 		},
 		{
-			"id": "d5d548e0-b57d-4fd2-a676-9f502471fc86",
+			"id": "45d9c573-e45f-47e9-aebe-979039806957",
 			"key": "spath1",
 			"value": ""
 		},
 		{
-			"id": "945ce96d-587a-4329-84a5-b14a7569a7d6",
+			"id": "f73a1e2d-b23f-42d0-b92f-e70b891e9b6d",
 			"key": "spath2",
 			"value": ""
 		},
 		{
-			"id": "e2c4c357-40d0-4633-829c-c01d300d41f8",
+			"id": "1f0840de-6753-47c8-84e5-93a6ed03301f",
 			"key": "spath3",
 			"value": ""
 		},
 		{
-			"id": "8c4552b6-bde3-429a-b3b3-728e22750bd3",
+			"id": "78afcacd-c483-437f-9ef1-19691abab6c7",
 			"key": "spath4",
 			"value": ""
 		},
 		{
-			"id": "6a9b5586-f488-4d6a-8dd0-bfb077608f76",
+			"id": "8339a4d1-65af-434c-ae1e-686a87d975f0",
 			"key": "spath5",
 			"value": ""
 		}
