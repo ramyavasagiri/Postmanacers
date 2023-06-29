@@ -92,35 +92,7 @@
 							"script": {
 								"id": "7733dd2a-d1a9-4d47-973b-2a4d8a945797",
 								"exec": [
-									"const jsonData = pm.response.json();\r",
-									"console.log(jsonData);\r",
-									"pm.environment.set(\"program_id\",jsonData.programId)\r",
-									"//pm.environment.set(\"program_desc\",jsonData.programDescription);\r",
-									"pm.environment.set(\"program_name\",jsonData.programName);\r",
-									"\r",
-									"//pm.environment.set(\"program_status\",jsonData.programStatus);\r",
-									"\r",
-									"\r",
-									"\r",
-									"    pm.test(\"Status code is 201\", function () {\r",
-									"        pm.response.to.have.status(201);\r",
-									"    });\r",
-									"\r",
-									"pm.test(\"Validate For Program already exists\",function()\r",
-									"{\r",
-									"    pm.expect(jsonData.message).to.eql(\"cannot create program , since already exists\")\r",
-									"\r",
-									"})\r",
-									"\r",
-									"pm.test(\"Validate Headers Cookies ResponseTime\" , function()\r",
-									"{\r",
-									"    pm.response.to.have.header(\"Content-Type\");\r",
-									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
-									"\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
-									"    \r",
-									"\r",
-									"})"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -2366,193 +2338,193 @@
 	],
 	"variable": [
 		{
-			"id": "2cb0e524-e019-444e-a6b6-7503ef06d3ed",
+			"id": "ae670163-9546-4b31-af4b-9567a32ec8fc",
 			"key": "user_FirstName",
 			"value": ""
 		},
 		{
-			"id": "a377bcd6-8a6a-404e-be71-9d02c3437f41",
+			"id": "c4fa7600-9d30-4ab1-b740-ce8758ef143a",
 			"key": "user_LastName",
 			"value": ""
 		},
 		{
-			"id": "bd8cf7fd-7c67-47db-854b-c7f656852458",
+			"id": "cb6e3148-10ea-4928-b27f-b8206c9223a1",
 			"key": "Role_Id",
 			"value": ""
 		},
 		{
-			"id": "1fca3ee7-c03d-4d8e-a0fb-a74d43fc11fd",
+			"id": "5fe22caf-49e5-49fc-9fd6-786a259bdb4b",
 			"key": "user_PhoneNumber",
 			"value": ""
 		},
 		{
-			"id": "22be47c5-d8db-4b32-a450-9e29b5943cd1",
+			"id": "10dea057-f5aa-49bd-812f-bddcead87766",
 			"key": "user_RoleStatus",
 			"value": ""
 		},
 		{
-			"id": "13d168cc-6c64-42ae-8521-48ba9538045c",
+			"id": "15c542a6-9edf-4084-846d-50aebb61c777",
 			"key": "user_TimeZone",
 			"value": ""
 		},
 		{
-			"id": "5e99d0c4-739f-4113-9797-08e13acf09e6",
+			"id": "6ff42e4f-e36a-406e-8a52-2829b512a434",
 			"key": "user_VisaStatus",
 			"value": ""
 		},
 		{
-			"id": "e9781152-26a3-490f-911c-7b52e67d4e47",
+			"id": "f51886e9-0057-4df8-bffb-50fb502da6d6",
 			"key": "user_EduPg",
 			"value": ""
 		},
 		{
-			"id": "7ba5898e-ccaa-4f1b-88c8-d0eed5813ccb",
+			"id": "ce4456e3-a1b6-4db8-a682-b55db51ec282",
 			"key": "user_EduUg",
 			"value": ""
 		},
 		{
-			"id": "e37d3ee1-2feb-4dde-b35d-4455e7db40e9",
+			"id": "87949e68-2ba6-4735-9321-82365af12309",
 			"key": "assignmentdescription",
 			"value": ""
 		},
 		{
-			"id": "4377abd1-f6ec-4cec-838e-a5a42c681342",
+			"id": "30cab735-139c-4035-8618-a36a842b8092",
 			"key": "assignment_name",
 			"value": ""
 		},
 		{
-			"id": "3da5a10e-4f94-45b9-a928-e5454d548c3a",
+			"id": "1ab95dee-765d-4b04-b6d5-34916eda7269",
 			"key": "batch_id",
 			"value": "",
 			"disabled": true
 		},
 		{
-			"id": "1bfa8c8f-6ae8-4ccc-adf6-f71c34134864",
+			"id": "4874836e-da9e-4d6b-9385-1cf216873144",
 			"key": "comments",
 			"value": ""
 		},
 		{
-			"id": "d3d4778d-44bd-4061-89ef-05d8b0153169",
+			"id": "2a330724-7d03-4d31-9759-44438b4ad354",
 			"key": "duedate",
 			"value": ""
 		},
 		{
-			"id": "e8f1276b-a6d2-4b23-b5da-0035561a5459",
+			"id": "d30e6b57-ffdc-4625-963a-d73e67785a60",
 			"key": "graderId",
 			"value": ""
 		},
 		{
-			"id": "af077cc4-8b54-47ee-b84a-0c970c93ee35",
+			"id": "dbee0959-a9af-4089-b9c7-df6ada2fae40",
 			"key": "path1",
 			"value": ""
 		},
 		{
-			"id": "bc04e0d7-56d1-4801-b080-900561231eea",
+			"id": "a48cf9cd-f020-4bd7-a54e-08c688b60ba6",
 			"key": "path2",
 			"value": ""
 		},
 		{
-			"id": "4307a73a-3e0e-43db-bdc8-350d23d8227c",
+			"id": "b7fcaaec-e9f7-4f02-a6ed-c006cd70f2b4",
 			"key": "path3",
 			"value": ""
 		},
 		{
-			"id": "157769c5-9229-4705-8c08-ba918c557938",
+			"id": "894c75cc-caeb-4db1-a21c-ae9159a3e0bc",
 			"key": "path4",
 			"value": ""
 		},
 		{
-			"id": "dc44c204-0e00-4ceb-a58e-bd9e43f3ef4c",
+			"id": "163737a3-7cd1-44f7-96de-4248265cfbb9",
 			"key": "path5",
 			"value": ""
 		},
 		{
-			"id": "0a85d894-53bb-4145-b03a-a4baf8b7590d",
+			"id": "e2b6e82d-5234-45fe-833f-5a9c0cd32474",
 			"key": "prog_name",
 			"value": ""
 		},
 		{
-			"id": "58bfee6e-d6d7-4c76-b773-0c737e452d10",
+			"id": "61f6c133-4f8e-4559-b021-84496798eb15",
 			"key": "prog_desc",
 			"value": ""
 		},
 		{
-			"id": "488b71ad-bfd2-44e8-abc6-d1a1a14989fe",
+			"id": "dcd159c4-8bb4-4141-95ac-d669f920618e",
 			"key": "prog_status",
 			"value": ""
 		},
 		{
-			"id": "f3aea7a3-f284-48ce-bd72-578fbe976667",
+			"id": "30a28ac5-cade-4d94-9e82-fa7932738d09",
 			"key": "batch_name",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "df0b17e0-b562-4066-ba3b-e340691b1737",
+			"id": "a18558fd-86d4-47bc-8243-76ec835432fb",
 			"key": "batch_status",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "6fb65e08-9972-44c3-ada5-3b9306858f2e",
+			"id": "17cb030d-2ce8-4b8e-9680-98892ff31017",
 			"key": "noOf_classes",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "cabcf9eb-ad52-4cc0-a75b-9c139d3b0521",
+			"id": "d4aaceb7-d910-43e7-82f6-772f0abe614e",
 			"key": "serialNumber",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "9334a1b2-95b4-4aef-ae95-e4ad9cb0a917",
+			"id": "3c154041-cd53-42ec-b45c-a239417f29da",
 			"key": "batch_desc",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "c1b2718f-5919-4e84-a4f1-1c20893290f6",
+			"id": "068ddb44-68b1-423a-be33-6023c66d7730",
 			"key": "Role_status",
 			"value": ""
 		},
 		{
-			"id": "1762f418-ce7f-480d-987d-b1ede7699304",
+			"id": "49434e2c-4e3a-4a83-a5ca-324d26012911",
 			"key": "Phone_Number",
 			"value": ""
 		},
 		{
-			"id": "a5ec985f-d975-4479-a5eb-6ac8ea6d62ee",
+			"id": "061af051-dea9-42d5-8047-623519b3e04d",
 			"key": "submissiondescription",
 			"value": ""
 		},
 		{
-			"id": "f2a74402-2a55-4cdd-aaee-724a17a38cef",
+			"id": "6e222072-2075-4ba0-bf25-9e8ea2664201",
 			"key": "subcomments",
 			"value": ""
 		},
 		{
-			"id": "46099950-776c-4c38-8012-d1e1319ea607",
+			"id": "5e9c527e-b49f-4bf1-b87e-75dd88da7b7f",
 			"key": "spath1",
 			"value": ""
 		},
 		{
-			"id": "35b0575e-3cab-4f30-b7fd-4f05eedd6bd5",
+			"id": "5ad99d0b-70df-4cc1-a3bc-5224b3c0155a",
 			"key": "spath2",
 			"value": ""
 		},
 		{
-			"id": "b94d9562-fbf0-4f85-a8de-ed6c0eb24c8b",
+			"id": "c82f4d60-3733-48aa-a50d-a9dc958d6933",
 			"key": "spath3",
 			"value": ""
 		},
 		{
-			"id": "0a4789af-d3e3-4f41-8672-2634f305a5d7",
+			"id": "efcdc2af-7800-4f1f-83d2-3d54c3bb6fea",
 			"key": "spath4",
 			"value": ""
 		},
 		{
-			"id": "6df2d0cb-9c5d-455e-8b98-5bdd9c5c9597",
+			"id": "22393714-ad59-41c5-83cc-ab1134676f63",
 			"key": "spath5",
 			"value": ""
 		}
