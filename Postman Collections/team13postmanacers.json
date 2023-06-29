@@ -2812,6 +2812,50 @@
 					"response": []
 				},
 				{
+					"name": "Get Assignment for Batch_404 Not Found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c5d2ac27-6051-4668-b0ed-3b79732dce57",
+								"exec": [
+									"pm.test(\"Validate the status code is 200\",function()\r",
+									"{\r",
+									"    pm.response.to.have.status(200);\r",
+									"   \r",
+									"})\r",
+									"\r",
+									"pm.test(\"Batch id not found\",function()\r",
+									"{\r",
+									"    pm.response.to.have.status(404);  \r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "277630f9-e98c-4b85-b202-c2ebc48eeac0",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "b0044fb1-98c2-450d-a3a3-1354aa27dd31",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BaseURL}}/assignments/batch/{{batch_id}}"
+					},
+					"response": []
+				},
+				{
 					"name": "UpdateAssignment",
 					"event": [
 						{
@@ -3169,193 +3213,193 @@
 	],
 	"variable": [
 		{
-			"id": "5128ef38-53ed-4aaa-86cc-d48f2963f65c",
+			"id": "dbad2ebf-de22-43b8-be5b-66ecf3ccf456",
 			"key": "user_FirstName",
 			"value": ""
 		},
 		{
-			"id": "b1060950-10a2-41c7-92c6-18a90e5be89f",
+			"id": "734d9e0e-a82a-45fd-9308-4beae209db4d",
 			"key": "user_LastName",
 			"value": ""
 		},
 		{
-			"id": "1f3e7475-c306-49d1-b0f6-7ad484c2cf52",
+			"id": "540bd3db-8434-430d-b374-9d46e7629ec1",
 			"key": "Role_Id",
 			"value": ""
 		},
 		{
-			"id": "7fe7e033-ae29-4193-adba-5c4901c7906a",
+			"id": "3861afac-5f72-483d-ae05-dd01d90df38d",
 			"key": "user_PhoneNumber",
 			"value": ""
 		},
 		{
-			"id": "9224ecbf-2926-43c0-a09a-8307078b8b34",
+			"id": "58481fc9-2f9f-4e64-ab0f-358767fa66dc",
 			"key": "user_RoleStatus",
 			"value": ""
 		},
 		{
-			"id": "31401cae-457a-49c6-b350-90daa123bb23",
+			"id": "b6bcb766-99ee-4011-b1f9-e312ac0d529e",
 			"key": "user_TimeZone",
 			"value": ""
 		},
 		{
-			"id": "824d9cf9-e3f3-442c-b9e9-cc2b93739d58",
+			"id": "0214b290-e242-471c-8f9a-3a863c874866",
 			"key": "user_VisaStatus",
 			"value": ""
 		},
 		{
-			"id": "3e25ecd7-d7bb-4895-81f1-c6e16a4566eb",
+			"id": "c7a776df-d054-4c9e-b1a5-564e71a0d764",
 			"key": "user_EduPg",
 			"value": ""
 		},
 		{
-			"id": "f8d0ae29-321a-4f33-8722-546fb151fd5a",
+			"id": "c26f2cac-4de7-4384-946f-9568954c5647",
 			"key": "user_EduUg",
 			"value": ""
 		},
 		{
-			"id": "52688563-4f7f-4e60-aa6c-7207a031fe37",
+			"id": "2aa76091-9f13-43c6-80ec-1a928675bfda",
 			"key": "assignmentdescription",
 			"value": ""
 		},
 		{
-			"id": "fe586258-fa78-4a19-905c-568f5f1089d9",
+			"id": "54061b53-94f6-4efa-b358-7fd6b8976f6a",
 			"key": "assignment_name",
 			"value": ""
 		},
 		{
-			"id": "0c095d1b-e020-4855-9fb9-3906bf6ca964",
+			"id": "a0d7e0c0-66a5-4e97-8a95-fc19bf96913c",
 			"key": "batch_id",
 			"value": "",
 			"disabled": true
 		},
 		{
-			"id": "ed3bce20-0f37-4273-96fa-a66e3a8489b2",
+			"id": "75381b79-d753-4c92-9d3d-b0b5025e3f0b",
 			"key": "comments",
 			"value": ""
 		},
 		{
-			"id": "997be49b-2956-400a-8ea3-d644fcb747a1",
+			"id": "7fffb839-edfc-4dfe-988e-affee949707f",
 			"key": "duedate",
 			"value": ""
 		},
 		{
-			"id": "95cde995-4ab6-4370-bd01-b202037f66c7",
+			"id": "7b077e99-74c8-4b7b-b8ea-29d692c21dd1",
 			"key": "graderId",
 			"value": ""
 		},
 		{
-			"id": "dc1dde44-e67b-41f1-8115-b9b3a025284e",
+			"id": "125dd5ae-6fd9-4423-aa49-48e4c8c7e4f0",
 			"key": "path1",
 			"value": ""
 		},
 		{
-			"id": "f9bb4a3e-2b1a-469e-b869-0cbb2dbaff12",
+			"id": "66ee233a-670c-4377-9603-aaab62d46d06",
 			"key": "path2",
 			"value": ""
 		},
 		{
-			"id": "0034afc6-c6f6-459c-b295-71f59d374c9a",
+			"id": "65553373-0d23-4a0d-bd13-a6d0696fd9a6",
 			"key": "path3",
 			"value": ""
 		},
 		{
-			"id": "028b8f1c-b749-40f1-a3a1-2079141b3d17",
+			"id": "5dc5e23f-d02e-4822-a6c6-d0d14100dd75",
 			"key": "path4",
 			"value": ""
 		},
 		{
-			"id": "384efd75-9bcb-40d0-9221-927b29658fef",
+			"id": "945b381d-049e-41d5-a5b3-176e7f23857a",
 			"key": "path5",
 			"value": ""
 		},
 		{
-			"id": "275ea703-fc8c-428e-9a2a-f1664f621fd4",
+			"id": "c7c119f1-bbc2-4ef5-b9ee-1132daf2fc65",
 			"key": "prog_name",
 			"value": ""
 		},
 		{
-			"id": "1004855a-34d7-40c4-80a3-96fcc9fdf28d",
+			"id": "ee05416d-5082-4181-9bb3-402379b899ca",
 			"key": "prog_desc",
 			"value": ""
 		},
 		{
-			"id": "bf635d54-90d4-4cca-a1a2-f1bc10845f0b",
+			"id": "2be9c933-58d2-411a-80fa-d391e0a55d87",
 			"key": "prog_status",
 			"value": ""
 		},
 		{
-			"id": "c9da2773-d67e-476a-97ad-0483e92ca906",
+			"id": "82d95b43-73b1-4fbd-8c01-1455228a98d3",
 			"key": "batch_name",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "2471401b-ad68-4b68-9fdb-232b09ed855c",
+			"id": "8d08cbab-8568-4a53-85e0-814f866087bd",
 			"key": "batch_status",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "9998eab4-c1cd-4e0d-aded-4fea7f58d6af",
+			"id": "d5dfc4a9-2471-44b3-bf54-b4c0ec7dd827",
 			"key": "noOf_classes",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "62457c8a-1595-4dfc-ba35-9564167fb350",
+			"id": "e0324077-eece-4efc-a991-feb777f3d594",
 			"key": "serialNumber",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "439b3f86-c362-4e83-a467-3f2cf52e1a44",
+			"id": "6ea024cf-cf0f-4459-b0ed-1e1717a755a0",
 			"key": "batch_desc",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "ae1f587c-7542-4360-9280-b1eea1e52bd0",
+			"id": "a32b55fa-2725-4698-98a5-edc051cb6e67",
 			"key": "Role_status",
 			"value": ""
 		},
 		{
-			"id": "08f34916-e7d8-4eeb-a83d-0453247f929d",
+			"id": "28188a06-24e0-4952-8c89-3942e6fbc9f6",
 			"key": "Phone_Number",
 			"value": ""
 		},
 		{
-			"id": "ee254128-9d6a-4434-a261-aa9a2b054720",
+			"id": "f97cb72f-6674-4faa-83d2-206c00f82e40",
 			"key": "submissiondescription",
 			"value": ""
 		},
 		{
-			"id": "a1afc19c-9a64-4e94-87f8-396497f33927",
+			"id": "ade65bac-41ff-4951-b502-f31cde6a1329",
 			"key": "subcomments",
 			"value": ""
 		},
 		{
-			"id": "06d5d4c9-70bb-4442-8573-fc290cc19800",
+			"id": "96a26289-613a-440f-a6d2-2a498e16014a",
 			"key": "spath1",
 			"value": ""
 		},
 		{
-			"id": "9b0b47bf-c240-422c-9f42-3eec302d8ea7",
+			"id": "0b00b4d1-6d60-44c9-aea5-79a1bee9c9d6",
 			"key": "spath2",
 			"value": ""
 		},
 		{
-			"id": "a2a397fc-1097-4aa1-9092-31ec379ebdc4",
+			"id": "9ca3d1eb-8d9d-4659-9d8a-ac05eca2c23b",
 			"key": "spath3",
 			"value": ""
 		},
 		{
-			"id": "695a2aa1-5021-4192-9fcf-eeaf9fff72e7",
+			"id": "e22cd804-9f14-4a1f-944f-8496cf47bdab",
 			"key": "spath4",
 			"value": ""
 		},
 		{
-			"id": "1ce9e4b5-3eab-4295-93f0-064ac553177b",
+			"id": "208c2b13-0513-43d1-b716-4369a71814b1",
 			"key": "spath5",
 			"value": ""
 		}
