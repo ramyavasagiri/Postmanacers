@@ -1075,7 +1075,7 @@
 							"variable": [
 								{
 									"key": "batchId",
-									"value": "SDET"
+									"value": "00567"
 								}
 							]
 						}
@@ -1375,6 +1375,113 @@
 						}
 					],
 					"id": "4a71fb62-18fc-4397-8775-80bbbb6f2497",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"userComments\": \"{{$randomPhrase}}\",\n\"userEduPg\": \"{{EduPg}}\",\n\"userEduUg\": \"{{EduUg}}\",\n\"userFirstName\": \"{{FirstName}}\",\n\"userLastName\": \"{{Last_Name}}\",\n\"userLinkedinUrl\": \"{{$randomUrl}}\",\n\"userLocation\": \"{{$randomCity}}\",\n\"userMiddleName\": \"{{$randomDomainWord}}\",\n\"userPhoneNumber\": {{PhoneNumber}},\n\"userRoleMaps\": [\n{\n\"roleId\": \"{{RoleId}}\",\n\"userRoleStatus\": \"{{RoleStatus}}\"\n}\n],\n\"userTimeZone\": \"{{TimeZone}}\",\n\"userVisaStatus\": \"{{VisaStatus}}\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BaseURL}}/users/users/roleStatus"
+					},
+					"response": []
+				},
+				{
+					"name": "Create User Copy",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1233a6bf-c00d-4878-b27a-c3480ce84949",
+								"exec": [
+									"pm.collectionVariables.set(\"user_FirstName\",pm.iterationData.get(\"FirstName\"));",
+									"pm.collectionVariables.set(\"user_LastName\",pm.iterationData.get(\"Last_Name\"));",
+									"pm.collectionVariables.set(\"Role_Id\",pm.iterationData.get(\"RoleId\"));",
+									"//pm.collectionVariables.set(\"Phone_Number\",pm.iterationData.get(\"PhoneNumber\"));",
+									"pm.environment.set(\"PhoneNumber\", [1000000000 + Math.floor(Math.random() * 8999999999)]);",
+									"pm.collectionVariables.set(\"user_RoleStatus\",pm.iterationData.get(\"RoleStatus\"));",
+									"pm.collectionVariables.set(\"user_TimeZone\",pm.iterationData.get(\"TimeZone\"));",
+									"pm.collectionVariables.set(\"user_VisaStatus\",pm.iterationData.get(\"VisaStatus\"));",
+									"pm.collectionVariables.set(\"user_EduPg\",pm.iterationData.get(\"EduPg\"));",
+									"pm.collectionVariables.set(\"user_EduUg\",pm.iterationData.get(\"EduUg\"));",
+									"",
+									"console.log(pm.collectionVariables.get(\"user_FirstName\"));",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "597da58e-c384-438f-8515-571f18f1dcbb",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"console.log(jsonData);",
+									"var reqBody = JSON.parse(pm.request.body);",
+									"var phNo = reqBody.userPhoneNumber;",
+									"const userId = jsonData.userId;",
+									"pm.environment.set(\"user_id\",userId);",
+									"const rid=pm.collectionVariables.get(\"Role_Id\");",
+									"",
+									"pm.environment.set(`user_idr-${pm.info.iteration + 1}`, JSON.stringify(jsonData.userId))",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"pm.test(\"Validate the status code is 201\",function()",
+									"{",
+									"    pm.response.to.have.status(201);",
+									"    pm.expect(jsonData).to.have.property(\"userFirstName\");",
+									"});",
+									"",
+									"pm.test(\"400 Bad Request\", function () ",
+									"{",
+									"    pm.response.to.have.status(400);",
+									"    ",
+									"});",
+									"",
+									"pm.test(\"Phone number already exists\", function () ",
+									"{",
+									"    pm.expect(jsonData.message).contains(\"Failed to create new User as phone number \" + phNo + \" already exists !!\");",
+									"});",
+									"",
+									"pm.test(\"Invalid Timezone\",function()",
+									"{",
+									"    pm.expect(jsonData.message).to.eql(\"Failed to create user, as 'TimeZone' is invalid !! \");",
+									"});",
+									"",
+									"pm.test(\"Invalid Role Id\",function()",
+									"{",
+									"    pm.expect(jsonData.message).to.eql(\"Role Id is mandatory\");",
+									"});",
+									"",
+									"pm.test(\"Validate Headers Cookies ResponseTime\" , function()",
+									"{",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");",
+									"",
+									"    pm.expect(pm.response.responseTime).to.be.below(400);",
+									"    ",
+									"",
+									"})",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "0e3fd55b-6334-4b01-be59-c182952bd70e",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -2460,193 +2567,193 @@
 	],
 	"variable": [
 		{
-			"id": "79a99b45-d3e1-4a0e-956e-1e759ea95738",
+			"id": "3abdf999-9943-4f02-8571-a10cfef74f1a",
 			"key": "user_FirstName",
 			"value": ""
 		},
 		{
-			"id": "3f7020ab-bf6a-4a85-b9e3-3e4c5e0f39ae",
+			"id": "352b849f-5b7c-404f-8229-9cdd9c005686",
 			"key": "user_LastName",
 			"value": ""
 		},
 		{
-			"id": "80c95c41-e93d-4f86-8d0d-1d96b8b511c9",
+			"id": "ac4cf09c-b512-4057-9775-51d8d4d0b0dc",
 			"key": "Role_Id",
 			"value": ""
 		},
 		{
-			"id": "d391ecb6-64ff-43ff-ad1e-13ab9f84a064",
+			"id": "66ac56f2-1081-4fda-a15e-2b74ac1a9d86",
 			"key": "user_PhoneNumber",
 			"value": ""
 		},
 		{
-			"id": "5443d842-f5b9-4f28-b42d-f2a4b8a4bc06",
+			"id": "2d8bd93b-8bb5-4f63-9644-667da7b858b8",
 			"key": "user_RoleStatus",
 			"value": ""
 		},
 		{
-			"id": "b7d4a184-b759-4572-851a-c427ca0e3ffe",
+			"id": "2bc7a98e-a708-4889-b7ed-e180d4433de7",
 			"key": "user_TimeZone",
 			"value": ""
 		},
 		{
-			"id": "0414a72b-2335-43c3-b8dc-2dff687a2a3a",
+			"id": "9bf7e290-247b-4acb-afdd-86d2869b5048",
 			"key": "user_VisaStatus",
 			"value": ""
 		},
 		{
-			"id": "14f2ca66-3dbb-4f74-a91d-103f680c0e9e",
+			"id": "0d7fdccf-a1a7-4c62-848a-a152cb2b2dde",
 			"key": "user_EduPg",
 			"value": ""
 		},
 		{
-			"id": "6fecc168-d561-4c1e-b82d-63422d52ab79",
+			"id": "1992438a-ab2b-4415-a116-1bc2e51bdfce",
 			"key": "user_EduUg",
 			"value": ""
 		},
 		{
-			"id": "7c117778-ac8d-4990-a04b-0cf0938a1342",
+			"id": "2fee49bd-1176-4078-b617-26c1cd300cba",
 			"key": "assignmentdescription",
 			"value": ""
 		},
 		{
-			"id": "8aa4d1fe-5c09-45ec-9bf2-11a3dcde8b03",
+			"id": "f08c060a-14c8-4de6-9e13-234d47bba0d5",
 			"key": "assignment_name",
 			"value": ""
 		},
 		{
-			"id": "aefeb7f5-3484-4a77-a1e2-6fe2a9ce757b",
+			"id": "a253f051-5b8e-4735-b403-f979a7fb0604",
 			"key": "batch_id",
 			"value": "",
 			"disabled": true
 		},
 		{
-			"id": "964b9264-9e33-4a75-ad2b-d93714a44532",
+			"id": "20a1f9d9-b9ff-4a66-b097-e6e5f343f51a",
 			"key": "comments",
 			"value": ""
 		},
 		{
-			"id": "f163f362-ad15-4baa-b7db-3acd558cad2d",
+			"id": "e59f674a-ba51-44fc-83bf-c0fec928dfef",
 			"key": "duedate",
 			"value": ""
 		},
 		{
-			"id": "863eccb6-45df-413b-a0af-599ca3b3af0b",
+			"id": "4f06b5ff-d7d1-4e2a-8f77-ac4d7bd9e414",
 			"key": "graderId",
 			"value": ""
 		},
 		{
-			"id": "5818764e-efc6-433f-8a63-488ce8dfd6c9",
+			"id": "b632ef63-be00-401a-a57d-fc5e936c01ed",
 			"key": "path1",
 			"value": ""
 		},
 		{
-			"id": "898eec3b-d5a2-4749-be94-20ff9da981cb",
+			"id": "a58f007d-9769-4dc5-a0d6-a6a204fb0fc0",
 			"key": "path2",
 			"value": ""
 		},
 		{
-			"id": "48840b93-7002-42e7-9b82-0a69b1792d1c",
+			"id": "7b5597e9-1d62-4c2e-87d2-7dd5ee97b714",
 			"key": "path3",
 			"value": ""
 		},
 		{
-			"id": "e5e36c1a-f59a-4690-aeac-39c51086ee2f",
+			"id": "92948e59-a3d4-409f-86ef-b4d27a90587d",
 			"key": "path4",
 			"value": ""
 		},
 		{
-			"id": "f4e5c494-2127-4685-bee8-c83f08aa51f5",
+			"id": "8e162533-f65e-4adf-908f-7599f9b45fdd",
 			"key": "path5",
 			"value": ""
 		},
 		{
-			"id": "7aa9146f-71e1-474b-b466-a5dd0533cdb8",
+			"id": "982aa0e3-81a9-4885-9a99-b9c17c486db9",
 			"key": "prog_name",
 			"value": ""
 		},
 		{
-			"id": "5a22b6a6-4637-4b84-ae39-081d6df0585e",
+			"id": "ac5ca5ae-11d4-40af-acb9-e598a7178a40",
 			"key": "prog_desc",
 			"value": ""
 		},
 		{
-			"id": "1ff9593f-e860-47af-981b-790ffacf6849",
+			"id": "70dfc08d-43c1-46b3-b21f-2f84cc5f428a",
 			"key": "prog_status",
 			"value": ""
 		},
 		{
-			"id": "73552796-c816-4aac-9a50-2d26b5232af7",
+			"id": "14163fa9-4f2a-4faf-898b-0db56f4b10d6",
 			"key": "batch_name",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "949c84b6-e288-4309-8234-88777cca580d",
+			"id": "94dd27f1-1448-42cb-a2cc-37a1c0402ee8",
 			"key": "batch_status",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "93456b34-a96d-4290-98bb-95f65b9f80f5",
+			"id": "20ccd545-f79d-47f9-a388-a40cd74e7c96",
 			"key": "noOf_classes",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "d98ed956-a1a5-46c4-968e-3eeb6218513f",
+			"id": "cac5c715-f00f-40c1-bfe8-f164f5918473",
 			"key": "serialNumber",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "e849c2b3-68cf-43d9-9971-a5f417c2b460",
+			"id": "5f4db8ac-b154-41a7-aa6c-4cfb92b75f30",
 			"key": "batch_desc",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "8fe17f1f-3055-40aa-bd7f-0a5e0666c036",
+			"id": "f22d5456-63ba-4449-b5e3-f3e42b9d7ad2",
 			"key": "Role_status",
 			"value": ""
 		},
 		{
-			"id": "009f86b9-22bd-4167-91b0-f140b4b3d8c0",
+			"id": "f3a83ebd-5173-426b-a4d2-6a27eb928711",
 			"key": "Phone_Number",
 			"value": ""
 		},
 		{
-			"id": "85198244-84b8-430b-932d-3bff34148d43",
+			"id": "c5bf08d0-71b8-4acf-ba99-1fcbcc25522d",
 			"key": "submissiondescription",
 			"value": ""
 		},
 		{
-			"id": "c35d49a6-51a5-4953-b01d-9179e7e488c1",
+			"id": "28db9769-3a46-4e0a-bf98-f515e5c3db13",
 			"key": "subcomments",
 			"value": ""
 		},
 		{
-			"id": "a4bfdadb-f22d-45bd-9ba6-f5d2fc4958bf",
+			"id": "520e72e7-6a2b-423b-b63a-9d13b6806a85",
 			"key": "spath1",
 			"value": ""
 		},
 		{
-			"id": "8dc17c15-a3f9-4060-9f33-4e3c5faf2999",
+			"id": "8e09456f-ef24-4a17-a2ca-932ad43c081d",
 			"key": "spath2",
 			"value": ""
 		},
 		{
-			"id": "94ca648b-fda7-46d3-ae88-a3aacc186885",
+			"id": "3a7cdcd6-4473-48b8-a8a1-0609e8eae21d",
 			"key": "spath3",
 			"value": ""
 		},
 		{
-			"id": "545d7f1b-21a7-4f97-9a97-1fc63309bda8",
+			"id": "94bfab33-0183-48b0-9c47-f3dbd88060e4",
 			"key": "spath4",
 			"value": ""
 		},
 		{
-			"id": "75fe3b4f-0eb9-4901-ad21-cad06bd30645",
+			"id": "fa107577-ff87-4b27-960b-4542b33acd17",
 			"key": "spath5",
 			"value": ""
 		}
