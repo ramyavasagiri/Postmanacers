@@ -1,0 +1,2182 @@
+{
+	"info": {
+		"_postman_id": "3779c55c-cda1-477a-a847-4b94c9e4c7c0",
+		"name": "PostmanHackathon_Team13",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Program",
+			"item": [
+				{
+					"name": "Create Program",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7733dd2a-d1a9-4d47-973b-2a4d8a945797",
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"console.log(jsonData);\r",
+									"pm.environment.set(\"program_id\",jsonData.programId)\r",
+									"//pm.environment.set(\"program_desc\",jsonData.programDescription);\r",
+									"pm.environment.set(\"program_name\",jsonData.programName);\r",
+									"\r",
+									"//pm.environment.set(\"program_status\",jsonData.programStatus);\r",
+									"\r",
+									"\r",
+									"\r",
+									"    pm.test(\"Status code is 201\", function () {\r",
+									"        pm.response.to.have.status(201);\r",
+									"    });\r",
+									"\r",
+									"pm.test(\"Validate For Program already exists\",function()\r",
+									"{\r",
+									"    pm.expect(jsonData.message).to.eql(\"cannot create program , since already exists\")\r",
+									"\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Validate Headers Cookies ResponseTime\" , function()\r",
+									"{\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+									"    \r",
+									"\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "6b9a6386-8971-443e-9456-272cce761f61",
+								"exec": [
+									"pm.collectionVariables.set(\"prog_name\",pm.iterationData.get(\"ProgramName\"));\r",
+									"pm.collectionVariables.set(\"prog_desc\",pm.iterationData.get(\"ProgramDescription\"));\r",
+									"pm.collectionVariables.set(\"prog_status\",pm.iterationData.get(\"ProgramStatus\"));\r",
+									"console.log(pm.collectionVariables.get(\"prog_name\"));\r",
+									"console.log(pm.collectionVariables.get(\"prog_desc\"));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "c7fceee0-2b98-4ba8-8325-7523f5a88e24",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"programDescription\": \"{{ProgramDescription}}\",\r\n  \"programName\": \"{{ProgramName}}\",\r\n  \"programStatus\": \"{{ProgramStatus}}\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BaseURL}}/saveprogram"
+					},
+					"response": [
+						{
+							"id": "17cd7bdd-b871-4b78-a52b-2be5d92c0fb2",
+							"name": "For Program_already_exists",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"programDescription\": \"{{ProgramDescription}}\",\r\n  \"programName\": \"{{ProgramName}}\",\r\n  \"programStatus\": \"{{ProgramStatus}}\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BaseURL}}/saveprogram"
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "GET all Programs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "22d69a44-1de9-4255-a81b-5b775cd1d08c",
+								"exec": [
+									"pm.test(\"Status is Success\",function()",
+									"{",
+									"    pm.response.to.have.status(200);  ",
+									"})",
+									"pm.test(\"Validate Headers Cookies ResponseTime\" , function()",
+									"{",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");",
+									"",
+									"    pm.expect(pm.response.responseTime).to.be.below(800);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "2b1078b6-a02b-400d-94ba-a91092ecde68",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BaseURL}}/allPrograms"
+					},
+					"response": []
+				},
+				{
+					"name": "GET one ProgramId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e716c8e0-e8ac-4a4c-8de2-594203827674",
+								"exec": [
+									"pm.test(\"Status is Success\",function()",
+									"{",
+									"    pm.response.to.have.status(\"OK\");  ",
+									"})",
+									"pm.test(\"Validate Headers Cookies ResponseTime\" , function()",
+									"{",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");",
+									"",
+									"    pm.expect(pm.response.responseTime).to.be.below(800);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "f44c86c9-2a41-4032-9921-42a45cbf7644",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BaseURL}}/programs/{{program_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Put Program_UpdateProgrambyName",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d6649816-507c-4591-9857-3f482b1d6a44",
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"console.log(jsonData);\r",
+									"\r",
+									"const ProgramNAME = jsonData.programName;\r",
+									"pm.environment.set(\"program_name\",ProgramNAME)\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate the status code is 200\",function()\r",
+									"{\r",
+									"    pm.response.to.have.status(\"OK\");   \r",
+									"})\r",
+									"pm.test(\"Invalid Program Name\",function()\r",
+									"{\r",
+									"    pm.response.to.have.status(404);\r",
+									"      \r",
+									"})\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate Headers Cookies ResponseTime\" , function()\r",
+									"{\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(404);\r",
+									"    \r",
+									"\r",
+									"})\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1a390ba9-7d90-4d71-81e5-ff5fc8d3ace0",
+								"exec": [
+									"pm.collectionVariables.set(\"prog_name\",pm.iterationData.get(\"UpdatedProgramName\"));",
+									"pm.collectionVariables.set(\"prog_desc\",pm.iterationData.get(\"UpdatedProgramDesc\"));",
+									"pm.collectionVariables.set(\"prog_status\",pm.iterationData.get(\"ProgramStatus\"));",
+									"console.log(pm.collectionVariables.get(\"prog_name\"));",
+									"console.log(pm.collectionVariables.get(\"prog_desc\"));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "12f822de-ca51-48ce-adfd-d7ad7e896992",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"programDescription\": \"{{UpdatedProgramDesc}}\",\r\n  \"programName\": \"{{UpdatedProgramName}}\",\r\n  \"programStatus\": \"{{ProgramStatus}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BaseURL}}/program/{{program_name}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Put Program_update Program by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0fcc1659-ae62-450c-9196-9f96f55127a0",
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"console.log(jsonData);\r",
+									"\r",
+									"pm.environment.set(\"program_name\",jsonData.programName);\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate the status code is 200\",function()\r",
+									"{\r",
+									"    pm.response.to.have.status(\"OK\");   \r",
+									"})\r",
+									"pm.test(\"Invalid Program ID\",function()\r",
+									"{\r",
+									"    pm.response.to.have.status(404);\r",
+									"      \r",
+									"})\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate Headers Cookies ResponseTime\" , function()\r",
+									"{\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(404);\r",
+									"    \r",
+									"\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "178945e6-620b-4ea3-9207-298007ce2577",
+								"exec": [
+									"pm.collectionVariables.set(\"prog_name\",pm.iterationData.get(\"UpdatedProgramName\"));",
+									"pm.collectionVariables.set(\"prog_desc\",pm.iterationData.get(\"UpdatedProgramDesc\"));",
+									"pm.collectionVariables.set(\"prog_status\",pm.iterationData.get(\"UpdatedProgramStatus\"));",
+									"console.log(pm.collectionVariables.get(\"prog_name\"));",
+									"console.log(pm.collectionVariables.get(\"prog_desc\"));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "40e91da4-b458-4005-87f4-99f5ccd9db65",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"programDescription\": \"{{UpdatedProgramDesc}}\",\r\n  \"programId\": {{program_id}},\r\n  \"programName\": \"{{UpdatedProgramName}}\",\r\n  \"programStatus\": \"{{UpdatedProgramStatus}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BaseURL}}//putprogram/{{program_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Program_delete By ProgramName",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6a36f88c-9eb0-4202-8001-6a8f958651b8",
+								"exec": [
+									"pm.test(\"Validate Headers Cookies ResponseTime\" , function()\r",
+									"{\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+									"    \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "d671c0fb-2818-474a-98c3-170d0eb88e1a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{BaseURL}}/deletebyprogname/{{program_name}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Program_delete By ProgramID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5f4de85a-b25e-4c31-b566-16b2b2321eb8",
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"var id = pm.environment.get(\"program_id\");\r",
+									"console.log(id);\r",
+									"pm.test(\"Validate For ProgramID deleted\",function()\r",
+									"{\r",
+									"    pm.expect(jsonData.Message).to.eql(\"Program Id-\"+ id+\"is deleted Successfully!\")\r",
+									"\r",
+									"})\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "0828c950-0839-486b-90ce-b19275fd7658",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{BaseURL}}/deletebyprogid/{{program_id}}"
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "ae302d53-ae10-46b5-a2d2-aaf072b5328d"
+		},
+		{
+			"name": "Batch",
+			"item": [
+				{
+					"name": "Create Batch",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ad96514f-6a1d-42c3-8f14-869f7ee3b04f",
+								"exec": [
+									"pm.collectionVariables.set(\"batch_name\",pm.iterationData.get(\"BatchName\"));\r",
+									"pm.collectionVariables.set(\"batch_status\",pm.iterationData.get(\"Batchstatus\"));\r",
+									"pm.collectionVariables.set(\"noOf_classes\",pm.iterationData.get(\"NoOfClasses\"));\r",
+									"pm.collectionVariables.set(\"batch_desc\",pm.iterationData.get(\"BatchDesc\"));\r",
+									"pm.environment.get(\"program_id\");\r",
+									"\r",
+									"//const val=pm.variables.replaceIn('{{$randomInt}}');\r",
+									"//pm.collectionVariables.set(\"serialNumber\",val);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "94ae5143-1426-4c6e-895a-199e7af88fb5",
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"console.log(jsonData);\r",
+									"const BatchID = jsonData.batchId;\r",
+									"pm.environment.set(\"batch_id\",BatchID)\r",
+									"const BatchNAME = jsonData.batchName;\r",
+									"pm.environment.set(\"batch_name\",BatchNAME)\r",
+									"console.log(BatchNAME);\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate the status code is 201\",function()\r",
+									"{\r",
+									"    pm.response.to.have.status(201);\r",
+									"     pm.expect(jsonData).to.have.property(\"batchId\");\r",
+									"    \r",
+									"\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Validate Headers Cookies ResponseTime\" , function()\r",
+									"{\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+									"    \r",
+									"\r",
+									"})\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "019519c3-c7ab-45e5-90c4-55d9a6f99f60",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n//Batch Name, programID , Batch status , No of Classes\r\n{\r\n  \"batchDescription\": \"{{BatchDesc}}\",\r\n  \"batchName\": \"{{BatchName}}\",\r\n  \"batchNoOfClasses\": {{NoOfClasses}},\r\n  \"batchStatus\": \"{{Batchstatus}}\",\r\n  \"programId\":{{program_id}} \r\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BaseURL}}/batches"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Batches",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bee75ade-059f-4228-9d94-74b1291b37c7",
+								"exec": [
+									"pm.test(\"Validate the status code\",function()\r",
+									"{\r",
+									"    pm.response.to.have.status(200);\r",
+									"   \r",
+									"\r",
+									"})\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate Headers Cookies ResponseTime\" , function()\r",
+									"{\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+									"    \r",
+									"\r",
+									"})\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "15583e89-f0dd-42e5-a36f-665dca3b539d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BaseURL}}/batches"
+					},
+					"response": []
+				},
+				{
+					"name": "Get batch by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9f29ebe4-4795-4158-98ff-bd057fd5c25c",
+								"exec": [
+									"pm.test(\"Validate the status code\",function()",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"   ",
+									"",
+									"})",
+									"",
+									"",
+									"pm.test(\"Validate Headers Cookies ResponseTime\" , function()",
+									"{",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");",
+									"",
+									"    pm.expect(pm.response.responseTime).to.be.below(400);",
+									"    ",
+									"",
+									"})",
+									"pm.test(\"Validate For BatchId do not exist\",function()",
+									"{",
+									"     pm.expect(jsonData.success).to.eql(false);",
+									"",
+									"})",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "7f34e411-e971-4b00-9a28-3603ddeacdd5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BaseURL}}/batches/batchId/{{batch_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Get batch by Name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "60906034-8807-48fc-bf67-f8a854ed9e7a",
+								"exec": [
+									"",
+									"",
+									"//pm.test(\"Status code 200\", function() {",
+									"     //pm.response.to.have.status(200);",
+									"     //pm.expect(jsonData).to.have.property(\"batchName\");",
+									"//});",
+									"pm.test(\"Validate the status code is 200\",function()",
+									"{",
+									"    pm.response.to.have.status(\"OK\");   ",
+									"})",
+									"",
+									"pm.test(\"Validate Headers Cookies ResponseTime\" , function()",
+									"{",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");",
+									"",
+									"    pm.expect(pm.response.responseTime).to.be.below(400);",
+									"    ",
+									"",
+									"})",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "c6c1f2ac-300f-4414-8534-8dde19464088",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BaseURL}}/batches/batchName/{{batch_name}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Get batch by programId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "742f569b-14fa-45d1-8f2e-5206da649d68",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"console.log(jsonData);",
+									"",
+									"",
+									"pm.test(\"Validate the status code is 200\",function()",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"   ",
+									"})",
+									"",
+									"",
+									"pm.test(\"Validate Headers Cookies ResponseTime\" , function()",
+									"{",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");",
+									"",
+									"    pm.expect(pm.response.responseTime).to.be.below(400);",
+									"    ",
+									"",
+									"})",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "f96bd77f-d701-492c-87bb-8eaa9f57a716",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BaseURL}}/batches/program/{{program_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "update batch",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2ae28e2c-5fa6-4b9c-9f13-79c940bbc352",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"console.log(jsonData);",
+									"const BatchID = jsonData.batchId;",
+									"pm.environment.set(\"batch_id\",BatchID)",
+									"",
+									"",
+									"pm.test(\"Validate the status code is 200\",function()",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"})",
+									"",
+									"",
+									"pm.test(\"Validate Headers Cookies ResponseTime\" , function()",
+									"{",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");",
+									"",
+									"    pm.expect(pm.response.responseTime).to.be.below(400);",
+									"    ",
+									"",
+									"})",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "7d6f030a-e539-4e03-810f-689beab2c2ef",
+								"exec": [
+									"pm.collectionVariables.set(\"batch_name\",pm.iterationData.get(\"UpdatedBatchName\"));",
+									"pm.collectionVariables.set(\"batch_status\",pm.iterationData.get(\"UpdatedBatchStatus\"));",
+									"pm.collectionVariables.set(\"noOf_classes\",pm.iterationData.get(\"NoOfClasses\"));",
+									"pm.collectionVariables.set(\"batch_desc\",pm.iterationData.get(\"UpdatedBatchDesc\"));",
+									"pm.environment.get(\"batch_id\");",
+									"pm.environment.get(\"program_id\");",
+									"pm.collectionVariables.set(\"prog_name\",pm.iterationData.get(\"ProgramName\"));",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "e12ecdbd-fe4d-4bef-8b7e-73ec00b79995",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"batchDescription\": \"{{UpdatedBatchDesc}}\",\n  \"batchId\":  {{batch_id}},\n  \"batchName\": \"{{UpdatedBatchName}}\",\n  \"batchNoOfClasses\":{{NoOfClasses}},\n  \"batchStatus\": \"{{UpdatedBatchStatus}}\",\n  \"programId\": {{program_id}},\n  \"programName\": \"{{program_name}}\"\n}\n\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BaseURL}}/batches/{{batch_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete batch",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6caaa428-a9e0-4148-be02-5c94459e13b2",
+								"exec": [
+									"pm.test(\"Status code 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"pm.test(\"Validate Headers Cookies ResponseTime\" , function()\r",
+									"{\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "53e211ab-38df-451c-914f-b76454a3124f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{BaseURL}}/batches/{{batch_id}}"
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "71f21002-96ce-454b-aa39-adfc798ffb29"
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create User",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1233a6bf-c00d-4878-b27a-c3480ce84949",
+								"exec": [
+									"pm.collectionVariables.set(\"user_FirstName\",pm.iterationData.get(\"FirstName\"));",
+									"pm.collectionVariables.set(\"user_LastName\",pm.iterationData.get(\"Last_Name\"));",
+									"pm.collectionVariables.set(\"Role_Id\",pm.iterationData.get(\"RoleId\"));",
+									"//pm.collectionVariables.set(\"Phone_Number\",pm.iterationData.get(\"PhoneNumber\"));",
+									"pm.environment.set(\"PhoneNumber\", [1000000000 + Math.floor(Math.random() * 8999999999)]);",
+									"pm.collectionVariables.set(\"user_RoleStatus\",pm.iterationData.get(\"RoleStatus\"));",
+									"pm.collectionVariables.set(\"user_TimeZone\",pm.iterationData.get(\"TimeZone\"));",
+									"pm.collectionVariables.set(\"user_VisaStatus\",pm.iterationData.get(\"VisaStatus\"));",
+									"pm.collectionVariables.set(\"user_EduPg\",pm.iterationData.get(\"EduPg\"));",
+									"pm.collectionVariables.set(\"user_EduUg\",pm.iterationData.get(\"EduUg\"));",
+									"",
+									"console.log(pm.collectionVariables.get(\"user_FirstName\"));",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "597da58e-c384-438f-8515-571f18f1dcbb",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"console.log(jsonData);",
+									"var reqBody = JSON.parse(pm.request.body);",
+									"var phNo = reqBody.userPhoneNumber;",
+									"const userId = jsonData.userId;",
+									"pm.environment.set(\"user_id\",userId);",
+									"const rid=pm.collectionVariables.get(\"Role_Id\");",
+									"",
+									"pm.environment.set(`user_idr-${pm.info.iteration + 1}`, JSON.stringify(jsonData.userId))",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"pm.test(\"Validate the status code is 201\",function()",
+									"{",
+									"    pm.response.to.have.status(201);",
+									"    pm.expect(jsonData).to.have.property(\"userFirstName\");",
+									"});",
+									"",
+									"pm.test(\"400 Bad Request\", function () ",
+									"{",
+									"    pm.response.to.have.status(400);",
+									"    ",
+									"});",
+									"",
+									"pm.test(\"Phone number already exists\", function () ",
+									"{",
+									"    pm.expect(jsonData.message).contains(\"Failed to create new User as phone number \" + phNo + \" already exists !!\");",
+									"});",
+									"",
+									"pm.test(\"Invalid Timezone\",function()",
+									"{",
+									"    pm.expect(jsonData.message).to.eql(\"Failed to create user, as 'TimeZone' is invalid !! \");",
+									"});",
+									"",
+									"pm.test(\"Invalid Role Id\",function()",
+									"{",
+									"    pm.expect(jsonData.message).to.eql(\"Role Id is mandatory\");",
+									"});",
+									"",
+									"pm.test(\"Validate Headers Cookies ResponseTime\" , function()",
+									"{",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");",
+									"",
+									"    pm.expect(pm.response.responseTime).to.be.below(400);",
+									"    ",
+									"",
+									"})",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "4a71fb62-18fc-4397-8775-80bbbb6f2497",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"userComments\": \"{{$randomPhrase}}\",\n\"userEduPg\": \"{{EduPg}}\",\n\"userEduUg\": \"{{EduUg}}\",\n\"userFirstName\": \"{{FirstName}}\",\n\"userLastName\": \"{{Last_Name}}\",\n\"userLinkedinUrl\": \"{{$randomUrl}}\",\n\"userLocation\": \"{{$randomCity}}\",\n\"userMiddleName\": \"{{$randomDomainWord}}\",\n\"userPhoneNumber\": {{PhoneNumber}},\n\"userRoleMaps\": [\n{\n\"roleId\": \"{{RoleId}}\",\n\"userRoleStatus\": \"{{RoleStatus}}\"\n}\n],\n\"userTimeZone\": \"{{TimeZone}}\",\n\"userVisaStatus\": \"{{VisaStatus}}\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BaseURL}}/users/users/roleStatus"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "658655a4-115a-45f2-b2e2-65f7f7564dec",
+								"exec": [
+									"pm.test(\"Status is Success\",function()",
+									"{",
+									"    pm.response.to.have.status(\"OK\");  ",
+									"})",
+									"pm.test(\"Validate Headers Cookies ResponseTime\" , function()",
+									"{",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");",
+									"",
+									"    pm.expect(pm.response.responseTime).to.be.below(404);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "e06d1d84-0482-492b-b20e-142175f2120c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BaseURL}}/users/users"
+					},
+					"response": []
+				},
+				{
+					"name": "User info by Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "816751ba-c4c6-4a31-987f-6bad9b8850fd",
+								"exec": [
+									"",
+									"",
+									"pm.test(\"Status is Success\",function()",
+									"{",
+									"    pm.response.to.have.status(\"OK\");  ",
+									"})",
+									"",
+									"pm.test(\"User id not found\",function()",
+									"{",
+									"    pm.response.to.have.status(404);  ",
+									"})",
+									"",
+									"pm.test(\"Validate Headers Cookies ResponseTime\" , function()",
+									"{",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");",
+									"",
+									"    pm.expect(pm.response.responseTime).to.be.below(404);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "8f46954f-0055-46ec-80e5-bbf209613589",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BaseURL}}/users/users/{{user_id}}"
+					},
+					"response": [
+						{
+							"id": "c0223e5a-0cdb-4676-b946-10340cfc4dd9",
+							"name": "User info by Id- Bad Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{BaseURL}}/users/users/{{user_id}}"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Cowboy"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 28 Jun 2023 04:08:34 GMT"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 vegur"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"message\": \"User Id null not found\",\n    \"success\": false\n}"
+						},
+						{
+							"id": "e6626219-6ef0-442f-9d08-e660dd35cde7",
+							"name": "User info by Id - Sucess",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{BaseURL}}/users/users/{{user_id}}"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Cowboy"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 28 Jun 2023 05:11:07 GMT"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 vegur"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "[\n    {\n        \"userRoleId\": 4304,\n        \"user\": {\n            \"userId\": \"U4216\",\n            \"userFirstName\": \"PostmanAcers_003\",\n            \"userLastName\": \"Smith\",\n            \"userMiddleName\": \"ambrose\",\n            \"userPhoneNumber\": 5993392409,\n            \"userLocation\": \"Port Mustafa\",\n            \"userTimeZone\": \"CST\",\n            \"userLinkedinUrl\": \"https://chadd.biz\",\n            \"userEduUg\": \"BE\",\n            \"userEduPg\": \"ME\",\n            \"userComments\": \"If we index the matrix, we can get to the USB circuit through the cross-platform JBOD alarm!\",\n            \"userVisaStatus\": \"Canada-EAD\"\n        },\n        \"role\": {\n            \"roleId\": \"R03\",\n            \"roleName\": \"ROLE_STUDENT\",\n            \"roleDesc\": \"LMS_STUDENT\",\n            \"creationTime\": null,\n            \"lastModTime\": null,\n            \"hibernateLazyInitializer\": {}\n        },\n        \"batches\": [],\n        \"userRoleStatus\": \"Active\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Get all users with roles",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9d6610cb-c1b0-47e9-97d6-2e8e3105c494",
+								"exec": [
+									"pm.test(\"Status is Success\",function()",
+									"{",
+									"    pm.response.to.have.status(\"OK\");  ",
+									"})",
+									"",
+									"pm.test(\"Validate Headers Cookies ResponseTime\" , function()",
+									"{",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");",
+									"    pm.expect(pm.response.responseTime).to.be.below(400);",
+									"    ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "6010d0bd-1cff-403b-97c5-292fe9fe6b8b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BaseURL}}/users/users/roles"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Staff",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "95f1233e-8feb-44f9-ad38-6dcb2806991f",
+								"exec": [
+									"pm.test(\"Validate the status code\",function()\r",
+									"{\r",
+									"    pm.response.to.have.status(200);\r",
+									"   \r",
+									"\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "cf7797b6-e4b6-40f0-ba1e-c43d3d94758c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BaseURL}}/users/users/getAllStaff"
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Update User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "94db47b8-edfc-4fa9-9fd5-537af5eaffd5",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"console.log(jsonData);",
+									"//const userId = jsonData.userId;",
+									"//pm.environment.set(\"user_id\",userId);",
+									"",
+									"",
+									"pm.test(\"Validate the status code is 200\",function()",
+									"{",
+									"    pm.response.to.have.status(\"OK\");   ",
+									"})",
+									"pm.test(\"Invalid User ID\",function()",
+									"{",
+									"    pm.response.to.have.status(404);",
+									"      ",
+									"})",
+									"",
+									"",
+									"pm.test(\"Validate Headers Cookies ResponseTime\" , function()",
+									"{",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");",
+									"",
+									"    pm.expect(pm.response.responseTime).to.be.below(404);",
+									"    ",
+									"",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "631b9107-5319-4810-84bc-0e01435e6fc8",
+								"exec": [
+									"pm.collectionVariables.set(\"user_FirstName\",pm.iterationData.get(\"FirstName\"));",
+									"pm.collectionVariables.set(\"user_LastName\",pm.iterationData.get(\"Last_Name\"));",
+									"//pm.collectionVariables.set(\"user_PhoneNumber\",pm.iterationData.get(\"PhoneNumber\"));",
+									"pm.environment.set(\"UpdatedPhoneNumber\", [1000000000 + Math.floor(Math.random() * 8999999999)]);",
+									"pm.collectionVariables.set(\"user_TimeZone\",pm.iterationData.get(\"UpdatedTimeZone\"));",
+									"pm.collectionVariables.set(\"user_VisaStatus\",pm.iterationData.get(\"VisaStatus\"));",
+									"pm.collectionVariables.set(\"user_EduPg\",pm.iterationData.get(\"EduPg\"));",
+									"pm.collectionVariables.set(\"user_EduUg\",pm.iterationData.get(\"EduUg\"));",
+									"",
+									"console.log(pm.collectionVariables.get(\"user_FirstName\"));",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "4907ad72-8ac5-494e-8fde-b8eec65d9368",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userComments\": \"{{$randomPhrase}}\",\n  \"userEduPg\": \"{{EduPg}}|\",\n  \"userEduUg\": \"{{EduUg}}\",\n  \"userFirstName\": \"{{FirstName}}\",\n  \"userId\": \"{{user_id}}\",\n  \"userLastName\": \"{{Last_Name}}\",\n  \"userLinkedinUrl\": \"{{$randomUrl}}\",\n  \"userLocation\": \"{{$randomCity}}\",\n \n  \"userPhoneNumber\": {{UpdatedPhoneNumber}},\n  \"userTimeZone\": \"{{UpdatedTimeZone}}\",\n\"userVisaStatus\": \"{{VisaStatus}}\"\n}\n\n\n\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BaseURL}}/users/users/{{user_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Update User Role Status",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "6497630b-48ea-439e-a8c2-3c2f12d2a967",
+								"exec": [
+									"//pm.collectionVariables.set(\"Role_Id\",pm.iterationData.get(\"RoleId\"));",
+									"pm.collectionVariables.set(\"Role_status\",pm.iterationData.get(\"UpdatedRoleStatus\"));",
+									"",
+									"console.log(pm.collectionVariables.get(\"user_FirstName\"));",
+									"console.log(pm.collectionVariables.get(\"Role_Id\"));",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "d8699106-5299-466f-b2c2-d07e1519c829",
+								"exec": [
+									"",
+									"",
+									"pm.test(\"Validate the status code is 200\",function()",
+									"{",
+									"    pm.response.to.have.status(\"OK\");   ",
+									"})",
+									"pm.test(\"Invalid User ID\",function()",
+									"{",
+									"    pm.response.to.have.status(404);",
+									"      ",
+									"})",
+									"",
+									"",
+									"pm.test(\"Validate Headers Cookies ResponseTime\" , function()",
+									"{",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");",
+									"",
+									"    pm.expect(pm.response.responseTime).to.be.below(404);",
+									"    ",
+									"",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "f6980d06-e2ad-4ce1-b9f4-649dcf52aac6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"roleId\": \"{{Role_Id}}\",\n  \"userRoleStatus\": \"{{UpdatedRoleStatus}}\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BaseURL}}/users/users/roleStatus/{{user_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Assign Update User Role Program Batch Status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a456e711-62cf-4a17-a41b-2918ba456ccd",
+								"exec": [
+									"pm.test(\"Validate the status code is 200\",function()",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"})",
+									"",
+									"",
+									"pm.test(\"Validate Headers Cookies ResponseTime\" , function()",
+									"{",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");",
+									"",
+									"    pm.expect(pm.response.responseTime).to.be.below(400);",
+									"    ",
+									"",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "6d6e76f6-8571-42a7-95e0-d26cc0b3b822",
+								"exec": [
+									"//pm.environment.get(\"program_id\");",
+									"//pm.environment.get(\"batch_id\");",
+									"//pm.environment.get(\"user_id\");",
+									"pm.collectionVariables.get(\"Role_Id\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "890f665b-bd95-4bf9-a8b8-358966232cde",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"programId\": \"{{program_id}}\",\n  \"roleId\": \"{{Role_Id}}\",\n  \"userId\":  \"{{user_id}}\",\n  \"userRoleProgramBatches\": [\n    {\n      \"batchId\": \"{{batch_id}}\",\n      \"userRoleProgramBatchStatus\": \"Active\"\n    }\n  ]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BaseURL}}/users/users/roleProgramBatchStatus/{{user_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f65ea6ee-3693-48f1-ad05-c64a09fe9cdc",
+								"exec": [
+									"",
+									"",
+									"pm.test(\"Status is Success\",function()",
+									"{",
+									"    pm.response.to.have.status(\"OK\");  ",
+									"})",
+									"",
+									"pm.test(\"User id not found\",function()",
+									"{",
+									"    pm.response.to.have.status(404);  ",
+									"})",
+									"",
+									"pm.test(\"Validate Headers Cookies ResponseTime\" , function()",
+									"{",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");",
+									"    pm.expect(pm.response.responseTime).to.be.below(800);",
+									"    ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "d41fa7ca-593c-4125-9b2c-163a6b9118c7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{BaseURL}}/users/users/{{user_id}}"
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "1359e585-7ff7-4d4a-a320-6ba462d34b84"
+		},
+		{
+			"name": "Assignment",
+			"item": [
+				{
+					"name": "Create Assignment",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "286dee84-3629-4c57-814f-38bc6a40acdc",
+								"exec": [
+									"pm.collectionVariables.set(\"assignmentdescription\",pm.iterationData.get(\"AssignmentDesc\"));\r",
+									"pm.collectionVariables.set(\"assignment_name\",pm.iterationData.get(\"AssignmentName\"));\r",
+									"pm.collectionVariables.get(\"batch_id\");\r",
+									"pm.collectionVariables.get(\"user_id\");\r",
+									"/*pm.environment.get(\"admin_id\")\r",
+									"pm.environment.get(\"staff_id\")\r",
+									"pm.environment.get(\"student_id\")*/\r",
+									"\r",
+									"pm.collectionVariables.set(\"comments\",pm.iterationData.get(\"Comments\"));\r",
+									"\r",
+									"\r",
+									"var moment = require('moment');\r",
+									"pm.environment.set(\"due_date\", moment.utc().add(2, 'days').toJSON());\r",
+									"\r",
+									"\r",
+									"pm.collectionVariables.set(\"path1\",pm.iterationData.get(\"AssignmentDoc1\"));\r",
+									"pm.collectionVariables.set(\"path2\",pm.iterationData.get(\"AssignmentDoc2\"));\r",
+									"pm.collectionVariables.set(\"path3\",pm.iterationData.get(\"AssignmentDoc3\"));\r",
+									"pm.collectionVariables.set(\"path4\",pm.iterationData.get(\"AssignmentDoc4\"));\r",
+									"pm.collectionVariables.set(\"path5\",pm.iterationData.get(\"AssignmentDoc5\"));\r",
+									"\r",
+									"Createdby_ids = [\"{{admin_id}}\", \"{{staff_id}}\"];\r",
+									"pm.environment.set(\"Createdby\", Createdby_ids[Math.floor(Math.random() * Createdby_ids.length)]);\r",
+									"\r",
+									"Graderids = [\"{{admin_id}}\", \"{{staff_id}}\", \"{{student_id}}\"];\r",
+									"pm.environment.set(\"Graderid\", Graderids[Math.floor(Math.random() * Graderids.length)]);\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "ead0f046-5f65-47b4-89db-234d51674afc",
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"console.log(jsonData);\r",
+									"const assignment_Id = jsonData.assignmentId;\r",
+									"pm.environment.set(\"assignment_id\",assignment_Id);\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate the status code is 201\",function()\r",
+									"{\r",
+									"    pm.response.to.have.status(201);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"400 Bad Request\", function () \r",
+									"{\r",
+									"    pm.response.to.have.status(400);\r",
+									"    \r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate Headers Cookies ResponseTime\" , function()\r",
+									"{\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+									"    \r",
+									"\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "2bf57d83-ce25-4b8c-98c2-5723e894c524",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"assignmentDescription\": \"{{AssignmentDesc}}\",\n  \"assignmentId\": 0,\n  \"assignmentName\": \"{{AssignmentName}}{{$randomInt}}\",\n  \"batchId\": {{batch_id}},\n  \"comments\": \"{{Comments}}\",\n  \"createdBy\": \"U3204\",\n  \"dueDate\": \"{{due_date}}\",\n  \"graderId\": \"U3204\",\n  \"pathAttachment1\": \"{{AssignmentDoc1}}\",\n  \"pathAttachment2\": \"{{AssignmentDoc2}}\",\n  \"pathAttachment3\": \"{{AssignmentDoc3}}\",\n  \"pathAttachment4\": \"{{AssignmentDoc4}}\",\n  \"pathAttachment5\": \"{{AssignmentDoc5}}\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BaseURL}}/assignments"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Assignments",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4dcb0f44-7743-47cc-9c89-ff86f7bfbd53",
+								"exec": [
+									"\r",
+									"\r",
+									"pm.test(\"Validate the status code is 200\",function()\r",
+									"{\r",
+									"    pm.response.to.have.status(200);\r",
+									"     \r",
+									"});\r",
+									"pm.test(\"Content-Type header is present\", () => {\r",
+									"  pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"pm.test(\"Content-Type header is application/json\", () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+									"});\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Test data type of the response\", () => {\r",
+									"    pm.expect(jsonData.assignmentId).to.be.a(\"undefined\");\r",
+									"    pm.expect(jsonData.assignmentName).to.be.an(\"undefined\");\r",
+									" });\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "5d8ffb84-0e38-4781-bc4c-36e63bfa78b4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BaseURL}}/assignments"
+					},
+					"response": []
+				},
+				{
+					"name": "Get by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8672f3e6-8c71-45e7-9a21-562404c96094",
+								"exec": [
+									"pm.test(\"Validate the status code is 200\",function()",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"     ",
+									"});",
+									"",
+									"pm.test(\"Assignment id not found\",function()",
+									"{",
+									"    pm.response.to.have.status(404);  ",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "0cf4ca32-d143-4bcb-a25d-5342741fa3ea",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BaseURL}}/assignments/{{assignment_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Assignment for Batch",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c5d2ac27-6051-4668-b0ed-3b79732dce57",
+								"exec": [
+									"pm.test(\"Validate the status code is 200\",function()\r",
+									"{\r",
+									"    pm.response.to.have.status(200);\r",
+									"   \r",
+									"})\r",
+									"\r",
+									"pm.test(\"Batch id not found\",function()\r",
+									"{\r",
+									"    pm.response.to.have.status(404);  \r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "277630f9-e98c-4b85-b202-c2ebc48eeac0",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "ca8e849b-4884-455b-8b04-441b48cc35a1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BaseURL}}/assignments/batch/{{batch_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateAssignment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d8657d44-9320-458c-8f3c-f4ba867bdf45",
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"console.log(jsonData);\r",
+									"\r",
+									"pm.test(\"Validate the status code is 200\",function()\r",
+									"{\r",
+									"    pm.response.to.have.status(200);\r",
+									"     \r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate Headers Cookies ResponseTime\" , function()\r",
+									"{\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+									"    \r",
+									"\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "d87b17ec-3e54-4f2a-8ceb-52a62686b19f",
+								"exec": [
+									"pm.collectionVariables.set(\"assignmentdescription\",pm.iterationData.get(\"AssignmentDesc\"));",
+									"pm.collectionVariables.set(\"assignment_name\",pm.iterationData.get(\"AssignmentName\"));",
+									"pm.collectionVariables.get(\"batch_id\");",
+									"pm.collectionVariables.get(\"user_id\");",
+									"pm.environment.get(\"admin_id\")",
+									"pm.environment.get(\"staff_id\")",
+									"pm.environment.get(\"student_id\")",
+									"",
+									"pm.collectionVariables.set(\"comments\",pm.iterationData.get(\"Comments\"));",
+									"pm.collectionVariables.set(\"path1\",pm.iterationData.get(\"AssignmentDoc1\"));",
+									"pm.collectionVariables.set(\"path2\",pm.iterationData.get(\"AssignmentDoc2\"));",
+									"pm.collectionVariables.set(\"path3\",pm.iterationData.get(\"AssignmentDoc3\"));",
+									"pm.collectionVariables.set(\"path4\",pm.iterationData.get(\"AssignmentDoc4\"));",
+									"pm.collectionVariables.set(\"path5\",pm.iterationData.get(\"AssignmentDoc5\"));",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "8360c376-375c-4fb6-bfa9-c199885f7754",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"assignmentDescription\": \"{{AssignmentDesc}}\",\n  \"assignmentId\": {{assignment_id}},\n \"assignmentName\": \"{{AssignmentName}}\",\n  \"batchId\": {{batch_id}},\n  \"comments\": \"{{Comments}}\",\n  \"createdBy\": \"U3204\",\n  \"dueDate\": \"{{$isoTimestamp}}\",\n  \"graderId\": \"U2401\",\n  \"pathAttachment1\": \"{{AssignmentDoc1}}\",\n  \"pathAttachment2\": \"{{AssignmentDoc2}}\",\n  \"pathAttachment3\": \"{{AssignmentDoc3}}\",\n  \"pathAttachment4\": \"{{AssignmentDoc4}}\",\n  \"pathAttachment5\": \"{{AssignmentDoc5}}\"\n   }\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BaseURL}}/assignments/{{assignment_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Assignment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d4f8ef23-da0e-421d-8795-039a050732b8",
+								"exec": [
+									"pm.test(\"Validate the status code is 200\",function()\r",
+									"{\r",
+									"    pm.response.to.have.status(200);\r",
+									"     \r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate Headers Cookies ResponseTime\" , function()\r",
+									"{\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"   \r",
+									"})\r",
+									"\r",
+									"pm.test(\"Validating For successful deletion message\",function()\r",
+									"{\r",
+									"    pm.expect(jsonData.message).to.eql(\"Assignment deleted successfully\");\r",
+									"     pm.expect(jsonData.success).to.eql(true);\r",
+									"\r",
+									"})\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "d2a9706e-0f72-4299-814a-d12231db1d60",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BaseURL}}/assignments/:assignmentId",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"assignments",
+								":assignmentId"
+							],
+							"variable": [
+								{
+									"key": "assignmentId",
+									"value": "1873",
+									"type": "string"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "23178020-7d48-4da1-bb71-6a454d58ebd4"
+		},
+		{
+			"name": "Assignment Submit Module",
+			"item": [
+				{
+					"name": "Submit Assignment",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1e616165-c6bd-41b4-a155-a25d1bc861aa",
+								"exec": [
+									"var moment = require('moment');",
+									"pm.environment.set(\"submission_date\", moment.utc().toJSON());",
+									"pm.environment.set(\"grading_date\", moment.utc().add(7, 'days').toJSON());",
+									"",
+									"pm.collectionVariables.set(\"submissiondescription\",pm.iterationData.get(\"SubmissionDesc\"));",
+									"pm.collectionVariables.set(\"subcomments\",pm.iterationData.get(\"SubmissionComments\"));",
+									"pm.collectionVariables.set(\"spath1\",pm.iterationData.get(\"AssignmentSubDoc1\"));",
+									"pm.collectionVariables.set(\"spath2\",pm.iterationData.get(\"AssignmentSubDoc2\"));",
+									"pm.collectionVariables.set(\"spath3\",pm.iterationData.get(\"AssignmentSubDoc3\"));",
+									"pm.collectionVariables.set(\"spath4\",pm.iterationData.get(\"AssignmentSubDoc4\"));",
+									"pm.collectionVariables.set(\"spath5\",pm.iterationData.get(\"AssignmentSubDoc5\"));"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "3ae0af9c-2d9d-4617-af8d-2894fd209702",
+								"exec": [
+									"/*const jsonData = pm.response.json();",
+									"console.log(jsonData);",
+									"const submission_Id = jsonData.submissionId;",
+									"pm.environment.set(\"submission_id\",submission_Id);*/"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "a5cb1611-5512-4789-a399-3d057642497b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[    {        \"assignmentId\": {{assignment_id}},\n        \"userId\": \"{{user_id}}\",\n        \"subDesc\": \"{{SubmissionDesc}}\",\n        \"subComments\": \"{{SubmissionComments}}\",\n        \"subPathAttach1\": \"{{AssignmentSubDoc1}}\",\n        \"subPathAttach2\": \"{{AssignmentSubDoc2}}\",\n        \"subPathAttach3\": \"{{AssignmentSubDoc3}}\",\n        \"subPathAttach4\": \"{{AssignmentSubDoc4}}\",\n        \"subPathAttach5\": \"{{AssignmentSubDoc5}}\",\n        \"subDateTime\": \"{{submission_date}}\",\n        \"gradedBy\": \"U3204\",\n        \"gradedDateTime\": \"{{grading_date}}\",\n        \"grade\": 0\n    }]\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BaseURL}}/assignmentsubmission"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Submission",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "484ad6f1-6fa4-417c-b3e5-63eb83ad177c",
+								"exec": [
+									"pm.test(\"Validate the status code is 200\",function()",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"     ",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "227a8db7-674c-472d-8878-cb56eeb70b3b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BaseURL}}/assignmentsubmission"
+					},
+					"response": []
+				},
+				{
+					"name": "GET Grades by Assignment ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "97fbe138-47a5-4346-a001-0ad78df55c6c",
+								"exec": [
+									"pm.test(\"Validate the status code is 200\",function()",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"   ",
+									"})",
+									"",
+									"pm.test(\"Batch id not found\",function()",
+									"{",
+									"    pm.response.to.have.status(404);  ",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "c0a5b336-25ff-409d-9c7e-ce1188d1c2b0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BaseURL}}/assignmentsubmission/getGrades/{{assignment_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "GET Grades by StudentID",
+					"_postman_id": "db18096b-ead4-4d4b-8698-6bbbfea8a058",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BaseURL}}/assignmentsubmission/getGradesByStudentId/{studentID}"
+					},
+					"response": []
+				},
+				{
+					"name": "GET Grades by BatchID",
+					"_postman_id": "75d15ca0-9013-4af7-ab75-11cb9f9f2a25",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BaseURL}}/assignmentsubmission/grades/{{batch_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "GET Submission by User ID",
+					"_postman_id": "0885f64c-9051-4460-b49b-fad06f33d00e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BaseURL}}/assignmentsubmission/student/{{user_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "GET Submission by batch ID",
+					"_postman_id": "aa7058da-e70e-4be2-a2b6-02df43960ac8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BaseURL}}/assignmentsubmission/studentbatch/{{batch_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"_postman_id": "8a9e4171-5be5-4a0d-a0bd-7d7878df878f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{BaseURL}}/assignmentsubmission/{Id}"
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "0d4c9965-a5ed-47f0-8b49-3b33ef7f2fa3"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "eac7048a-69c1-46e0-a6a1-e2f37e73bc1d",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "e3a3da3b-604d-41e6-8b95-2553fd0e4d02",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "d1a49265-7892-4dc0-a891-55c22619c994",
+			"key": "user_FirstName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "87fbdf5c-72b8-4a8e-9945-2c9d2b38501d",
+			"key": "user_LastName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "9733eb48-7afe-4143-a858-5e4243012397",
+			"key": "Role_Id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "893af6b3-0373-4e13-9642-8e5eccfb7dc7",
+			"key": "user_PhoneNumber",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "f6036633-44e2-4405-a104-2994199690cd",
+			"key": "user_RoleStatus",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "de5e81dc-dd00-4a5f-a445-e277d8078114",
+			"key": "user_TimeZone",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "d9794a86-bd37-4a78-b977-124852f40f56",
+			"key": "user_VisaStatus",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "078880e4-3ec7-435f-90cc-7b6f9da0eae6",
+			"key": "user_EduPg",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "56b757ef-20c4-4436-bf41-a11e9933f4de",
+			"key": "user_EduUg",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "fe6aefde-e7b6-429d-b304-f3f3ba6c29dc",
+			"key": "assignmentdescription",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "c5ade228-ef10-4e1f-9b46-ab33bb5366af",
+			"key": "assignment_name",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "bea63989-d7f2-4361-8fec-7ddd130fe829",
+			"key": "batch_id",
+			"value": "",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"id": "8006d580-8fe3-4c89-a0a2-8dfa63a2b075",
+			"key": "comments",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "ba70814d-20c6-4e9e-baf8-cbcb1df797ac",
+			"key": "duedate",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "af87002e-6ce9-4cd1-ad7d-44e21b3e8f8d",
+			"key": "graderId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "a891f4ef-c99f-4839-b105-0fd2878d3ac7",
+			"key": "path1",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "337b6337-1dff-46b8-b888-dacf917e0ed3",
+			"key": "path2",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "11b8bd82-d0a2-4404-b56c-792b1f711bc6",
+			"key": "path3",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "8908e018-d551-4c58-b6ec-f9a3f72e4152",
+			"key": "path4",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "d2770ba8-6e15-4d45-a145-db4d3fea4a58",
+			"key": "path5",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "d0566637-322f-44f0-a94e-c36b1a0fb037",
+			"key": "prog_name",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "a960ebf8-9b3d-4b80-9414-9690f1ec723b",
+			"key": "prog_desc",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "87156be0-19e4-4580-9380-7cbb400a6d1b",
+			"key": "prog_status",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "d68aae18-522f-47b8-a0dc-c795aa5e7f39",
+			"key": "batch_name",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "2ab9ea01-3133-4313-9d03-292af843e12f",
+			"key": "batch_status",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "26bd2810-2f77-42f4-bb6e-a8db970534b6",
+			"key": "noOf_classes",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "d06f8bc1-fcde-4cd4-bed9-774ac12f4dbb",
+			"key": "serialNumber",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "223685ba-5508-49ea-9ca7-51eb2b3e3457",
+			"key": "batch_desc",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "ad394c82-d5b9-41a5-8fe9-c90bea6e5250",
+			"key": "Role_status",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "501316bf-93dc-4d50-9388-29309a29ff28",
+			"key": "Phone_Number",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "72f7862e-ad89-4a74-81ef-46fe367750f2",
+			"key": "submissiondescription",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "27d038c3-a365-4662-bd3e-bbf82b07bd36",
+			"key": "subcomments",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "df31b088-ab2c-41c1-a022-de94cebe3703",
+			"key": "spath1",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "97e86e5a-9948-49f9-b6c7-e2a422e776e6",
+			"key": "spath2",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "f25b2da0-f90f-4af3-ba67-8a77bff858ea",
+			"key": "spath3",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "36213a95-9328-4e3d-b5d4-121f3358e8fb",
+			"key": "spath4",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "936429cf-e865-4d7b-bb40-5015e92b5ee4",
+			"key": "spath5",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
