@@ -2806,6 +2806,50 @@
 					"response": []
 				},
 				{
+					"name": "Get Assignment for BatchIf batch id present and  no assignment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c5d2ac27-6051-4668-b0ed-3b79732dce57",
+								"exec": [
+									"pm.test(\"Validate the status code is 200\",function()\r",
+									"{\r",
+									"    pm.response.to.have.status(200);\r",
+									"   \r",
+									"})\r",
+									"\r",
+									"pm.test(\"Batch id not found\",function()\r",
+									"{\r",
+									"    pm.response.to.have.status(404);  \r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "277630f9-e98c-4b85-b202-c2ebc48eeac0",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "ed2e9f3d-7b02-4393-9562-cecf5a1b8022",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BaseURL}}/assignments/batch/{{batch_id}}"
+					},
+					"response": []
+				},
+				{
 					"name": "Get Assignment for Batch_404 Not Found_If batch Id is invalid",
 					"event": [
 						{
@@ -3131,6 +3175,40 @@
 					"response": []
 				},
 				{
+					"name": "GET Grades by Assignment ID Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "97fbe138-47a5-4346-a001-0ad78df55c6c",
+								"exec": [
+									"pm.test(\"Validate the status code is 200\",function()",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"   ",
+									"})",
+									"",
+									"pm.test(\"Batch id not found\",function()",
+									"{",
+									"    pm.response.to.have.status(404);  ",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "92cd0038-0d52-4a9c-81e0-0059cbfefb72",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BaseURL}}/assignmentsubmission/getGrades/{{assignment_id}}"
+					},
+					"response": []
+				},
+				{
 					"name": "GET Grades by StudentID",
 					"id": "db18096b-ead4-4d4b-8698-6bbbfea8a058",
 					"protocolProfileBehavior": {
@@ -3223,193 +3301,193 @@
 	],
 	"variable": [
 		{
-			"id": "517557dd-5265-410c-b3e6-88935167f92b",
+			"id": "6ef0d378-b3ca-484d-9b5e-bc0d95604dca",
 			"key": "user_FirstName",
 			"value": ""
 		},
 		{
-			"id": "bfaff1fe-2fda-4bb7-9192-2bffa47cdde8",
+			"id": "e1d206eb-ad51-4dd7-b203-c90628f8d38c",
 			"key": "user_LastName",
 			"value": ""
 		},
 		{
-			"id": "7c461b3d-36c8-44b3-91c4-4af0d8ef065a",
+			"id": "93494841-69b5-4af5-916b-86db174c8f11",
 			"key": "Role_Id",
 			"value": ""
 		},
 		{
-			"id": "c1c7f07c-3049-4e3f-a40a-94b1b0ba3a87",
+			"id": "04540a9e-72e0-4767-a493-165d0b41b480",
 			"key": "user_PhoneNumber",
 			"value": ""
 		},
 		{
-			"id": "a60678a4-393c-4271-8cac-8c536abb3697",
+			"id": "3daba55e-b75c-4aa2-9e1b-5b3710e7409a",
 			"key": "user_RoleStatus",
 			"value": ""
 		},
 		{
-			"id": "2a847795-5fd3-46fa-942f-b20ec1b594a9",
+			"id": "69fa31c2-9482-409c-88eb-d16710e61e03",
 			"key": "user_TimeZone",
 			"value": ""
 		},
 		{
-			"id": "eb17e874-cae9-4ba6-b55a-1176c76979a0",
+			"id": "81986cde-74ce-4b09-b1a1-574d922212ae",
 			"key": "user_VisaStatus",
 			"value": ""
 		},
 		{
-			"id": "df482cf5-dd99-478c-9cdb-fa35fec0df11",
+			"id": "3e4304f4-29ff-44b1-bc98-6ee6dcef6ad2",
 			"key": "user_EduPg",
 			"value": ""
 		},
 		{
-			"id": "2f5f3378-950c-441b-976d-8c4bf6da9723",
+			"id": "9a5c7b2b-bccd-40b6-8948-9ca25354dd32",
 			"key": "user_EduUg",
 			"value": ""
 		},
 		{
-			"id": "51e74797-a2da-4ee1-937a-c6433e29bb2b",
+			"id": "17551a7c-8b79-468a-a46a-f540d116d597",
 			"key": "assignmentdescription",
 			"value": ""
 		},
 		{
-			"id": "722336d1-90f2-4a4a-ba5b-f7624bd89ede",
+			"id": "9a5962a3-d9a7-4c59-8e42-a82016049c74",
 			"key": "assignment_name",
 			"value": ""
 		},
 		{
-			"id": "7bfcdabf-3db0-4e33-8b34-aab1e42e8974",
+			"id": "14b20dd8-9689-449e-b85b-2f725a3ba4cd",
 			"key": "batch_id",
 			"value": "",
 			"disabled": true
 		},
 		{
-			"id": "2863cc8b-a332-4767-9190-d80c7aedef92",
+			"id": "9b09295e-bdbe-44ce-b48a-0f0974da00a0",
 			"key": "comments",
 			"value": ""
 		},
 		{
-			"id": "5aa88b0b-21ba-4a26-bc08-42a0d7d36c69",
+			"id": "a66725b9-024f-40a1-902f-9758dd3a316e",
 			"key": "duedate",
 			"value": ""
 		},
 		{
-			"id": "aa7d7153-97dc-46b8-a24e-180fb4261517",
+			"id": "6bfc4cae-fa98-46d7-91b5-7d8d66ec1f38",
 			"key": "graderId",
 			"value": ""
 		},
 		{
-			"id": "9e1952b0-eb08-4895-9da6-064eea8e0c85",
+			"id": "4480f8aa-5471-4275-9c5d-d0774c9788c1",
 			"key": "path1",
 			"value": ""
 		},
 		{
-			"id": "8458f861-d321-4e1a-bfa4-1faddf0bfe65",
+			"id": "fb1745b1-2857-45bd-b226-8672a8a00383",
 			"key": "path2",
 			"value": ""
 		},
 		{
-			"id": "54b20656-d0ef-4762-9d44-aab7eb10d0a0",
+			"id": "5c0936a3-1091-44fa-ba53-d04a21407c13",
 			"key": "path3",
 			"value": ""
 		},
 		{
-			"id": "e269c9d7-8f89-4653-b0f0-5d4c6bba90db",
+			"id": "4f707dd9-66a2-4abf-a989-9044ae581a0b",
 			"key": "path4",
 			"value": ""
 		},
 		{
-			"id": "a3a4f482-5409-4af9-8c81-5c9d46e305fb",
+			"id": "8614b0bb-7746-44d6-8e0a-e60cd1d8e575",
 			"key": "path5",
 			"value": ""
 		},
 		{
-			"id": "e31615b4-a7dc-4edb-a9e9-b99cc271a4c2",
+			"id": "b9bee5f7-a5f7-416e-9a6f-aa6d75792bfd",
 			"key": "prog_name",
 			"value": ""
 		},
 		{
-			"id": "fd4818c8-8d61-43be-875a-af1e12f2c9b2",
+			"id": "15b7fdc8-825b-4cd8-acf9-7d98e579e2b0",
 			"key": "prog_desc",
 			"value": ""
 		},
 		{
-			"id": "977c9b62-7bf4-4d08-895e-ba24fc89a934",
+			"id": "a3cd8f88-0b83-4aee-b85a-63c9d170fbe1",
 			"key": "prog_status",
 			"value": ""
 		},
 		{
-			"id": "1c25251c-f07d-4a39-8e3b-502f05f94622",
+			"id": "502b2197-2b65-426b-aa2b-d36a366df748",
 			"key": "batch_name",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "eedb2c58-e03e-443c-a9be-b3270a3bfb4a",
+			"id": "8004dba8-19d4-4f00-bc47-9eb937b2e2f3",
 			"key": "batch_status",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "2e9f3235-de28-487b-a636-91cc69c94dee",
+			"id": "69c28577-fa5a-43d6-ba35-2d3391b81bde",
 			"key": "noOf_classes",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "044bfd7e-18d2-46b0-8ba9-39f588cf2672",
+			"id": "a2021abe-2bff-487a-9593-1c01575d37c0",
 			"key": "serialNumber",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "e50c00df-d72d-46ec-8d3b-8a7d1195df96",
+			"id": "3fe9ee77-7eaf-479a-bacc-5bd349b13272",
 			"key": "batch_desc",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "079e2445-13c1-42ba-b54b-93eb7c6e4507",
+			"id": "7397635b-3402-4277-b634-993d04970962",
 			"key": "Role_status",
 			"value": ""
 		},
 		{
-			"id": "fc413104-c523-4479-bfbb-a7f50ae0b990",
+			"id": "d700a16e-1e99-4e09-8776-105e863eee2f",
 			"key": "Phone_Number",
 			"value": ""
 		},
 		{
-			"id": "a2cf96fc-fa11-489a-b244-2355390158db",
+			"id": "6533f0ad-a17c-4936-b260-8535ccbbcf68",
 			"key": "submissiondescription",
 			"value": ""
 		},
 		{
-			"id": "afafef22-c98d-4e6d-842a-41daf3101db0",
+			"id": "106de475-56c5-4983-880a-5a13791b9120",
 			"key": "subcomments",
 			"value": ""
 		},
 		{
-			"id": "2f8b8342-deaa-4ed4-8b23-581ae17a009f",
+			"id": "512da32e-3a75-4c29-8df6-bf419a71eade",
 			"key": "spath1",
 			"value": ""
 		},
 		{
-			"id": "f26a9043-38f3-4bda-bce8-c6433786aef4",
+			"id": "25381cf7-2938-4bc8-89c2-0f8d8807b398",
 			"key": "spath2",
 			"value": ""
 		},
 		{
-			"id": "633e26bd-ed6c-4b00-84ba-8001b174e998",
+			"id": "c04360f3-0a44-4fe1-9eb6-e51eb865601d",
 			"key": "spath3",
 			"value": ""
 		},
 		{
-			"id": "eca83cb5-a4ba-4937-aa92-88ba301762c1",
+			"id": "1412ec34-c131-4d50-85b7-204d9bd81fea",
 			"key": "spath4",
 			"value": ""
 		},
 		{
-			"id": "e3c1cd41-c524-4324-bd77-6b4f7f75e8cc",
+			"id": "046fe267-5b4b-4f1c-a638-3fd9581bb1fe",
 			"key": "spath5",
 			"value": ""
 		}
