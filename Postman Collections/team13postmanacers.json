@@ -196,41 +196,6 @@
 					"response": []
 				},
 				{
-					"name": "GET all Programs Copy",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "22d69a44-1de9-4255-a81b-5b775cd1d08c",
-								"exec": [
-									"pm.test(\"Status is Success\",function()",
-									"{",
-									"    pm.response.to.have.status(200);  ",
-									"})",
-									"pm.test(\"Validate Headers Cookies ResponseTime\" , function()",
-									"{",
-									"    pm.response.to.have.header(\"Content-Type\");",
-									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");",
-									"",
-									"    pm.expect(pm.response.responseTime).to.be.below(800);",
-									"})"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"id": "cef201e1-d740-4684-a050-6157d660c44f",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": "{{BaseURL}}/allPrograms"
-					},
-					"response": []
-				},
-				{
 					"name": "For Invalid ProgramID",
 					"event": [
 						{
@@ -810,6 +775,52 @@
 					"response": []
 				},
 				{
+					"name": "404_no record found with programName",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6a36f88c-9eb0-4202-8001-6a8f958651b8",
+								"exec": [
+									"pm.test(\"Validate Headers Cookies ResponseTime\" , function()\r",
+									"{\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+									"    \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "421f1cf8-2803-49c3-9e60-7ee2b2a771dd",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BaseURL}}/deletebyprogname/:programName",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"deletebyprogname",
+								":programName"
+							],
+							"variable": [
+								{
+									"key": "programName",
+									"value": "Data Analytics-001"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Delete Program_delete By ProgramID",
 					"event": [
 						{
@@ -840,6 +851,54 @@
 						"method": "DELETE",
 						"header": [],
 						"url": "{{BaseURL}}/deletebyprogid/{{program_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "404_no record found with programId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5f4de85a-b25e-4c31-b566-16b2b2321eb8",
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"cosole.log(jsonData);\r",
+									"pm.test(\"Validate For ProgramID deleted\",function()\r",
+									"{\r",
+									"    pm.expect(jsonData.message).to.eql(\"no record found with programId+programId\")\r",
+									"\r",
+									"})\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "b378d384-82a2-4596-9abc-cd203481f2d7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BaseURL}}/deletebyprogid/:programId",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"deletebyprogid",
+								":programId"
+							],
+							"variable": [
+								{
+									"key": "programId",
+									"value": "67543"
+								}
+							]
+						}
 					},
 					"response": []
 				}
@@ -2406,193 +2465,193 @@
 	],
 	"variable": [
 		{
-			"id": "f9b14e90-a80c-4cbf-83df-f2a9fd852ca5",
+			"id": "cc307596-02de-4479-8cd5-1758203f5b9d",
 			"key": "user_FirstName",
 			"value": ""
 		},
 		{
-			"id": "948df0cf-85c5-481f-864d-554918f1f019",
+			"id": "26463f7e-c8b9-4d48-8d62-68783d10da89",
 			"key": "user_LastName",
 			"value": ""
 		},
 		{
-			"id": "7daee00d-cad2-4481-9a32-a6870bb1fd3c",
+			"id": "93927864-f0c7-4545-b23f-8dd3a1bd0001",
 			"key": "Role_Id",
 			"value": ""
 		},
 		{
-			"id": "41cbd02a-292e-4a77-88d7-c03eff14eec6",
+			"id": "cef5ada3-4dfa-4b06-8da6-074ba1282c91",
 			"key": "user_PhoneNumber",
 			"value": ""
 		},
 		{
-			"id": "ef062062-46a0-450a-ab74-75ab29987578",
+			"id": "a5bf437d-8de1-4f09-be93-970d3346deb5",
 			"key": "user_RoleStatus",
 			"value": ""
 		},
 		{
-			"id": "01a9e26e-a7ae-4f71-8cc8-bffa00e1efb2",
+			"id": "6329dcb6-d92d-4869-b5bc-acafbe6221fe",
 			"key": "user_TimeZone",
 			"value": ""
 		},
 		{
-			"id": "04ca8972-64a9-4f20-99fb-a7292d2804c8",
+			"id": "9e2ab487-20c9-497d-b337-960b9acbb88d",
 			"key": "user_VisaStatus",
 			"value": ""
 		},
 		{
-			"id": "9baaf513-814f-42bc-ac6f-7b6a03ce3097",
+			"id": "51817fda-3e3e-437a-a0f1-3e96bf41349f",
 			"key": "user_EduPg",
 			"value": ""
 		},
 		{
-			"id": "ca0af7be-441e-4080-9f89-4f480fca1985",
+			"id": "dc2d4bd9-bb3e-4b1d-aae5-cc8e2ece1567",
 			"key": "user_EduUg",
 			"value": ""
 		},
 		{
-			"id": "1137f75f-994a-4a48-b735-261a76f18b01",
+			"id": "e10c057a-6c17-4a00-95cc-0f0859c276ce",
 			"key": "assignmentdescription",
 			"value": ""
 		},
 		{
-			"id": "c1f9d20c-3b0c-4c4e-90f1-5e8e298b4610",
+			"id": "1362d7f2-a81f-4249-852d-d71d3b883c5e",
 			"key": "assignment_name",
 			"value": ""
 		},
 		{
-			"id": "e0af1af4-4290-49e3-a40a-dec4e7ad8a56",
+			"id": "9adee57e-80e3-443c-a692-eb522eb5c41d",
 			"key": "batch_id",
 			"value": "",
 			"disabled": true
 		},
 		{
-			"id": "77261f71-9760-41a6-9c95-64f7a9b1b733",
+			"id": "a9cfe896-204b-4a3b-9aa6-960cd7da10be",
 			"key": "comments",
 			"value": ""
 		},
 		{
-			"id": "2ab63170-5bf8-4ad3-8b65-e55836b201b1",
+			"id": "eecedd0d-84f1-4503-89da-f518e91d1e13",
 			"key": "duedate",
 			"value": ""
 		},
 		{
-			"id": "0b36641c-348b-44f5-89e5-fa1f82f569e6",
+			"id": "7af1663c-2c03-4e0d-9f80-d0e12e0487e7",
 			"key": "graderId",
 			"value": ""
 		},
 		{
-			"id": "3b233ac5-3b88-4445-ad3b-35d1655c9455",
+			"id": "3b23e040-8f3c-40dd-b19d-461e2028bc4a",
 			"key": "path1",
 			"value": ""
 		},
 		{
-			"id": "a50b3ed1-2f44-476f-b360-0f91b4cc725c",
+			"id": "becb04a8-5925-4183-a24d-7c67d793e5f7",
 			"key": "path2",
 			"value": ""
 		},
 		{
-			"id": "82e6849e-8f5e-44aa-bc7b-133fc0d92bcc",
+			"id": "784c8614-399b-4b2a-91ce-b6bcb56bcc5f",
 			"key": "path3",
 			"value": ""
 		},
 		{
-			"id": "55f7c0b5-aa2c-4a50-a02f-1f731689bd2f",
+			"id": "a34acf4b-646e-40bc-acbd-c7d81591f89a",
 			"key": "path4",
 			"value": ""
 		},
 		{
-			"id": "b6c7b539-f83a-4315-97b1-4a8497c2f354",
+			"id": "9e1dc4de-279e-410b-9ab3-7bab1fcb6dd3",
 			"key": "path5",
 			"value": ""
 		},
 		{
-			"id": "badaeebf-aa8d-43ab-89ab-1ecc9ebb2a5b",
+			"id": "a8219b29-9a99-4b9d-8fc0-567e8bd212d8",
 			"key": "prog_name",
 			"value": ""
 		},
 		{
-			"id": "cb44c0d4-0017-4cbc-a051-fa91f342c3a8",
+			"id": "7c7cdc62-c941-4499-927c-d1678d8b6f0e",
 			"key": "prog_desc",
 			"value": ""
 		},
 		{
-			"id": "df77f0f4-7db5-4db2-9bba-6424c4553604",
+			"id": "050d3861-4fc6-42a2-a698-de7e960533fa",
 			"key": "prog_status",
 			"value": ""
 		},
 		{
-			"id": "e5482af6-56d8-4650-8710-614694ff83a7",
+			"id": "c3e00694-d1f9-4095-8fa8-522ac6881d28",
 			"key": "batch_name",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "c41db7b9-244a-4bb6-af2e-d9c6bd9a2f2b",
+			"id": "f21f0d20-2ba2-4756-bcea-5ae670c7d285",
 			"key": "batch_status",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "f941a7b9-aa80-45a8-9bfb-ef4b10df94d0",
+			"id": "b1cdcc78-807f-402f-b04e-d243baa13431",
 			"key": "noOf_classes",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "437a70d5-6c78-4912-aa4c-8279ebfc0e27",
+			"id": "88c365ea-c52c-45ed-987a-b490cf0a5906",
 			"key": "serialNumber",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "83f6354e-78dc-485b-b9d5-b5d193e596c5",
+			"id": "13bb2f77-977b-47d3-87c6-7251c4327e37",
 			"key": "batch_desc",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "eccb9435-f282-4bee-9bca-b53b7fba01ec",
+			"id": "b2d429a5-e6df-4a8e-b54e-1890970fd50f",
 			"key": "Role_status",
 			"value": ""
 		},
 		{
-			"id": "ccb29f4f-4ec8-4f5f-96d1-9a66c0b27e7d",
+			"id": "c46c6aab-cda3-4c3c-9c85-1edbb3fe259f",
 			"key": "Phone_Number",
 			"value": ""
 		},
 		{
-			"id": "f2cb1645-240c-4eaf-ad98-cb33f139a67d",
+			"id": "5aec1a4c-123c-443b-9c97-9092bf4d1ac1",
 			"key": "submissiondescription",
 			"value": ""
 		},
 		{
-			"id": "6edaea38-6747-41b8-b278-650297d3c4a3",
+			"id": "477b5d2a-2617-42e8-8f63-4395069ab5ec",
 			"key": "subcomments",
 			"value": ""
 		},
 		{
-			"id": "e0ad02ab-fb1a-4c1c-a2fe-be0eb62d69d3",
+			"id": "2858f406-bd9a-465c-944d-e611d84c7355",
 			"key": "spath1",
 			"value": ""
 		},
 		{
-			"id": "658ba98c-a8c7-419a-88e7-966eecb5dd66",
+			"id": "dab20c87-d11f-468f-a06c-91bd7e74f22d",
 			"key": "spath2",
 			"value": ""
 		},
 		{
-			"id": "f85da762-24ea-4ba8-8705-935f2b7ba356",
+			"id": "f714b504-22f4-46a0-96f6-7569d4dae25b",
 			"key": "spath3",
 			"value": ""
 		},
 		{
-			"id": "5190e06a-cad1-4c32-a57b-2ff1b2df78c6",
+			"id": "417d27e3-d7ed-4b7f-9a57-28ab56231910",
 			"key": "spath4",
 			"value": ""
 		},
 		{
-			"id": "8af03925-dd0e-480a-a85f-eb06665670de",
+			"id": "14ffbc39-9907-4c64-abb7-83dc51c5ae4a",
 			"key": "spath5",
 			"value": ""
 		}
