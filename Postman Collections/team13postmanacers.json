@@ -1631,51 +1631,15 @@
 							"script": {
 								"id": "597da58e-c384-438f-8515-571f18f1dcbb",
 								"exec": [
-									"const jsonData = pm.response.json();",
-									"console.log(jsonData);",
-									"var reqBody = JSON.parse(pm.request.body);",
-									"var phNo = reqBody.userPhoneNumber;",
-									"const userId = jsonData.userId;",
-									"pm.environment.set(\"user_id\",userId);",
-									"const rid=pm.collectionVariables.get(\"Role_Id\");",
-									"",
-									"pm.environment.set(`user_idr-${pm.info.iteration + 1}`, JSON.stringify(jsonData.userId))",
-									"",
-									"",
-									"",
-									"",
-									"",
-									"pm.test(\"400 Bad Request\", function () ",
+									"pm.test(\"For 400 Bad Request failed to create new user\",function()",
 									"{",
-									"    pm.response.to.have.status(400);",
-									"    ",
+									"   pm.response.to.have.status(400);",
 									"});",
 									"",
-									"pm.test(\"Phone number already exists\", function () ",
-									"{",
-									"    pm.expect(jsonData.message).contains(\"Failed to create new User as phone number \" + phNo + \" already exists !!\");",
-									"});",
 									"",
-									"pm.test(\"Invalid Timezone\",function()",
-									"{",
-									"    pm.expect(jsonData.message).to.eql(\"Failed to create user, as 'TimeZone' is invalid !! \");",
-									"});",
 									"",
-									"pm.test(\"Invalid Role Id\",function()",
-									"{",
-									"    pm.expect(jsonData.message).to.eql(\"Role Id is mandatory\");",
-									"});",
 									"",
-									"pm.test(\"Validate Headers Cookies ResponseTime\" , function()",
-									"{",
-									"    pm.response.to.have.header(\"Content-Type\");",
-									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");",
-									"",
-									"    pm.expect(pm.response.responseTime).to.be.below(400);",
-									"    ",
-									"",
-									"})",
-									"",
+									"p",
 									""
 								],
 								"type": "text/javascript"
@@ -2711,6 +2675,105 @@
 					"response": []
 				},
 				{
+					"name": "Create Assignment Copy",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "286dee84-3629-4c57-814f-38bc6a40acdc",
+								"exec": [
+									"pm.collectionVariables.set(\"assignmentdescription\",pm.iterationData.get(\"AssignmentDesc\"));\r",
+									"pm.collectionVariables.set(\"assignment_name\",pm.iterationData.get(\"AssignmentName\"));\r",
+									"pm.collectionVariables.get(\"batch_id\");\r",
+									"pm.collectionVariables.get(\"user_id\");\r",
+									"/*pm.environment.get(\"admin_id\")\r",
+									"pm.environment.get(\"staff_id\")\r",
+									"pm.environment.get(\"student_id\")*/\r",
+									"\r",
+									"pm.collectionVariables.set(\"comments\",pm.iterationData.get(\"Comments\"));\r",
+									"\r",
+									"\r",
+									"var moment = require('moment');\r",
+									"pm.environment.set(\"due_date\", moment.utc().subtract(2, 'days').toJSON());\r",
+									"\r",
+									"\r",
+									"pm.collectionVariables.set(\"path1\",pm.iterationData.get(\"AssignmentDoc1\"));\r",
+									"pm.collectionVariables.set(\"path2\",pm.iterationData.get(\"AssignmentDoc2\"));\r",
+									"pm.collectionVariables.set(\"path3\",pm.iterationData.get(\"AssignmentDoc3\"));\r",
+									"pm.collectionVariables.set(\"path4\",pm.iterationData.get(\"AssignmentDoc4\"));\r",
+									"pm.collectionVariables.set(\"path5\",pm.iterationData.get(\"AssignmentDoc5\"));\r",
+									"\r",
+									"Createdby_ids = [\"{{admin_id}}\", \"{{staff_id}}\"];\r",
+									"pm.environment.set(\"Createdby\", Createdby_ids[Math.floor(Math.random() * Createdby_ids.length)]);\r",
+									"\r",
+									"Graderids = [\"{{admin_id}}\", \"{{staff_id}}\", \"{{student_id}}\"];\r",
+									"pm.environment.set(\"Graderid\", Graderids[Math.floor(Math.random() * Graderids.length)]);\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "ead0f046-5f65-47b4-89db-234d51674afc",
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"console.log(jsonData);\r",
+									"const assignment_Id = jsonData.assignmentId;\r",
+									"pm.environment.set(\"assignment_id\",assignment_Id);\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate the status code is 201\",function()\r",
+									"{\r",
+									"    pm.response.to.have.status(201);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"400 Bad Request\", function () \r",
+									"{\r",
+									"    pm.response.to.have.status(400);\r",
+									"    \r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate Headers Cookies ResponseTime\" , function()\r",
+									"{\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+									"    \r",
+									"\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "2edc0c58-832f-4b76-bfff-7cc29a2ac231",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"assignmentDescription\": \"{{AssignmentDesc}}\",\n  \"assignmentId\": 0,\n  \"assignmentName\": \"{{AssignmentName}}{{$randomInt}}\",\n  \"batchId\": {{batch_id}},\n  \"comments\": \"{{Comments}}\",\n  \"createdBy\": \"U3204\",\n  \"dueDate\": \"{{due_date}}\",\n  \"graderId\": \"U3204\",\n  \"pathAttachment1\": \"{{AssignmentDoc1}}\",\n  \"pathAttachment2\": \"{{AssignmentDoc2}}\",\n  \"pathAttachment3\": \"{{AssignmentDoc3}}\",\n  \"pathAttachment4\": \"{{AssignmentDoc4}}\",\n  \"pathAttachment5\": \"{{AssignmentDoc5}}\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BaseURL}}/assignments"
+					},
+					"response": []
+				},
+				{
 					"name": "Get All Assignments",
 					"event": [
 						{
@@ -3189,193 +3252,193 @@
 	],
 	"variable": [
 		{
-			"id": "ea9647a5-9520-4539-805b-7984d4271c56",
+			"id": "9ed2b3ec-62b6-4850-8ca4-4ee638b53374",
 			"key": "user_FirstName",
 			"value": ""
 		},
 		{
-			"id": "d30e20ba-eafc-427f-99e0-ff87e357a95f",
+			"id": "e5ca17b6-2745-4a49-8c72-b62cfb80f874",
 			"key": "user_LastName",
 			"value": ""
 		},
 		{
-			"id": "36e59810-3b0d-4059-9654-2fad514f6a3d",
+			"id": "b54fc8df-d0ec-459f-9102-e2ef1efc38a8",
 			"key": "Role_Id",
 			"value": ""
 		},
 		{
-			"id": "f82f517d-9158-4428-a33e-c8871f7e23fe",
+			"id": "e8b117b7-0abb-4c78-a7e0-d53928056425",
 			"key": "user_PhoneNumber",
 			"value": ""
 		},
 		{
-			"id": "c121b60e-93cd-49a8-b012-fdfe21d46153",
+			"id": "bafdb166-c5ee-450a-8856-6ecd816a517f",
 			"key": "user_RoleStatus",
 			"value": ""
 		},
 		{
-			"id": "9988fe92-9042-4123-b542-b4ea31126e39",
+			"id": "ecc503b1-a041-41c6-a061-e73c5f7835bc",
 			"key": "user_TimeZone",
 			"value": ""
 		},
 		{
-			"id": "34220149-b957-4bd2-9225-aea25d562415",
+			"id": "16863e27-0974-425b-b921-d64243e275f7",
 			"key": "user_VisaStatus",
 			"value": ""
 		},
 		{
-			"id": "6f600baf-d39c-4ae0-bc96-0ff4fca5f826",
+			"id": "c03b4b64-7cfb-4b87-96fb-1e8485c7b4c3",
 			"key": "user_EduPg",
 			"value": ""
 		},
 		{
-			"id": "20b7b8f8-e923-4796-a2eb-d8b937d53e36",
+			"id": "c1ee894a-c87f-4c27-b8f4-4ee3ea38cc0c",
 			"key": "user_EduUg",
 			"value": ""
 		},
 		{
-			"id": "0d172366-1ae3-4118-89f3-79afc39018af",
+			"id": "fc304bc7-11f6-488d-b0cd-60cfe31a7b87",
 			"key": "assignmentdescription",
 			"value": ""
 		},
 		{
-			"id": "69a4485c-152d-40f9-8175-3bc4489126aa",
+			"id": "e327a27f-9260-4b56-93ef-1e92cf5270de",
 			"key": "assignment_name",
 			"value": ""
 		},
 		{
-			"id": "3ce5b790-2658-4a80-a857-5d4b6cd3940f",
+			"id": "2b43dc33-be6d-4ff0-a270-b54c7f13fa26",
 			"key": "batch_id",
 			"value": "",
 			"disabled": true
 		},
 		{
-			"id": "3e5e5baa-6a3b-4a08-bdec-74df79e1db8d",
+			"id": "e252d8a5-1bb6-43f7-8513-d6f2c306f0cf",
 			"key": "comments",
 			"value": ""
 		},
 		{
-			"id": "4054acf5-a10b-4a75-bf9e-32c8644eed9e",
+			"id": "c32ade05-190d-446d-afff-f630aeada6bc",
 			"key": "duedate",
 			"value": ""
 		},
 		{
-			"id": "dbc6ec6a-d768-449c-92a6-503671c41665",
+			"id": "0f34435a-821d-4a84-9e87-9c461a190090",
 			"key": "graderId",
 			"value": ""
 		},
 		{
-			"id": "6837050c-8dd0-43cf-b256-5e34387282d0",
+			"id": "b59fa875-19e0-4cd4-aaec-e8e1e44ed382",
 			"key": "path1",
 			"value": ""
 		},
 		{
-			"id": "4caf7f1d-95c8-4da0-9223-118c73e1d640",
+			"id": "7f1289c4-6452-4aab-9916-964ba2701921",
 			"key": "path2",
 			"value": ""
 		},
 		{
-			"id": "3134d217-18c6-49b3-864b-e9ddcff53881",
+			"id": "ad56bb60-8b7a-4ef2-8a67-539d1e64f8bf",
 			"key": "path3",
 			"value": ""
 		},
 		{
-			"id": "231313ca-7348-4026-b310-a1e2ced802e2",
+			"id": "6bf7fdcd-0e95-43a1-8d89-0be9d1a93061",
 			"key": "path4",
 			"value": ""
 		},
 		{
-			"id": "35f9e069-98a1-444b-8eb9-6a37e59a4ab1",
+			"id": "69e48819-6086-4612-bad5-9f6d94e853d7",
 			"key": "path5",
 			"value": ""
 		},
 		{
-			"id": "0ab157d1-0a86-467a-9eed-8fbdac8de506",
+			"id": "9cea697e-5501-4f28-82c1-f44b1976bd2b",
 			"key": "prog_name",
 			"value": ""
 		},
 		{
-			"id": "43aed726-44e3-44e1-b939-87d846bc8171",
+			"id": "f3e7587e-26ff-4cc7-9db7-3e3433649f2f",
 			"key": "prog_desc",
 			"value": ""
 		},
 		{
-			"id": "0b1a72f3-c694-4de3-8ff6-47145cdc91a7",
+			"id": "f8813643-0d45-4c85-9190-d74a7945c5c2",
 			"key": "prog_status",
 			"value": ""
 		},
 		{
-			"id": "bc3ea25e-91a7-41c9-9397-428baaf9d883",
+			"id": "a13f1688-b096-4664-a905-ae2ce25ff770",
 			"key": "batch_name",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "af1582e6-1985-4e21-b892-350d86ef8b28",
+			"id": "b0f2e252-f632-412a-aa1f-933b34504375",
 			"key": "batch_status",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "baffdae8-3873-4db7-a1fb-69e14616d11c",
+			"id": "61f309b9-61bf-4ad9-8837-78700133bdcd",
 			"key": "noOf_classes",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "6e2c15bd-ca1a-46b4-b695-ddf6226fd88e",
+			"id": "1a9dd102-5990-421f-b2d8-004e69b499d3",
 			"key": "serialNumber",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "e7c6a700-9c4e-44be-aa72-04eb4772a85f",
+			"id": "04e83f6a-bf0c-4b1e-b945-e39772e5ad31",
 			"key": "batch_desc",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "ecfb7627-6384-43e4-a5c7-9a4e1326b538",
+			"id": "007dc1f6-1c74-41a5-84f7-0f6f5ba4a5a2",
 			"key": "Role_status",
 			"value": ""
 		},
 		{
-			"id": "e8527e42-ab88-49f7-83d3-96a353c2cead",
+			"id": "7fd63c63-dca2-4e54-a21d-80077d8b2bca",
 			"key": "Phone_Number",
 			"value": ""
 		},
 		{
-			"id": "8b8471c9-52ed-476e-a50c-4273aa25a1b0",
+			"id": "053b8073-a5f2-4720-a026-8c42094b372e",
 			"key": "submissiondescription",
 			"value": ""
 		},
 		{
-			"id": "695b48ee-d6e2-4536-93a8-cb82fc82330f",
+			"id": "220bd81d-2971-47d9-9386-1b7ca97f3f3c",
 			"key": "subcomments",
 			"value": ""
 		},
 		{
-			"id": "493061fa-409c-4f02-9132-c5ef149397c8",
+			"id": "22b38727-5cda-4d88-bd58-d580166aac68",
 			"key": "spath1",
 			"value": ""
 		},
 		{
-			"id": "acdd295b-ddfa-4911-b93b-c0efb75db0c0",
+			"id": "18a31163-87cf-4878-927f-a7fe5f9c2176",
 			"key": "spath2",
 			"value": ""
 		},
 		{
-			"id": "def07617-438e-4c9b-aaab-0ee8218cbbe3",
+			"id": "ed5bdeae-406e-4c80-8f96-62ea61683a2b",
 			"key": "spath3",
 			"value": ""
 		},
 		{
-			"id": "0a54add8-6584-4276-8408-0c92004e016b",
+			"id": "cc515dd4-81de-4420-8bfa-cd3d6c440a1c",
 			"key": "spath4",
 			"value": ""
 		},
 		{
-			"id": "4cd489b8-76ea-4147-80bb-6ffc62c865ba",
+			"id": "96d2e914-81ee-4c85-b88e-645e1dbcc9bb",
 			"key": "spath5",
 			"value": ""
 		}
