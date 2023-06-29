@@ -9,138 +9,6 @@
 			"name": "Program",
 			"item": [
 				{
-					"name": "Negative Scenarios",
-					"item": [
-						{
-							"name": "Negative Scenarios for invalid Program Name",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "7733dd2a-d1a9-4d47-973b-2a4d8a945797",
-										"exec": [
-											"const jsonData = pm.response.json();\r",
-											"console.log(jsonData);\r",
-											"pm.environment.set(\"program_id\",jsonData.programId)\r",
-											"//pm.environment.set(\"program_desc\",jsonData.programDescription);\r",
-											"pm.environment.set(\"program_name\",jsonData.programName);\r",
-											"\r",
-											"//pm.environment.set(\"program_status\",jsonData.programStatus);\r",
-											"\r",
-											"\r",
-											"\r",
-											"    pm.test(\"Status code is 201\", function () {\r",
-											"        pm.response.to.have.status(201);\r",
-											"    });\r",
-											"\r",
-											"pm.test(\"Validate For Program already exists\",function()\r",
-											"{\r",
-											"    pm.expect(jsonData.message).to.eql(\"cannot create program , since already exists\")\r",
-											"\r",
-											"})\r",
-											"\r",
-											"pm.test(\"Validate Headers Cookies ResponseTime\" , function()\r",
-											"{\r",
-											"    pm.response.to.have.header(\"Content-Type\");\r",
-											"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
-											"\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
-											"    \r",
-											"\r",
-											"})"
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "6b9a6386-8971-443e-9456-272cce761f61",
-										"exec": [
-											"pm.collectionVariables.set(\"prog_name\",pm.iterationData.get(\"ProgramName\"));\r",
-											"pm.collectionVariables.set(\"prog_desc\",pm.iterationData.get(\"ProgramDescription\"));\r",
-											"pm.collectionVariables.set(\"prog_status\",pm.iterationData.get(\"ProgramStatus\"));\r",
-											"console.log(pm.collectionVariables.get(\"prog_name\"));\r",
-											"console.log(pm.collectionVariables.get(\"prog_desc\"));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"id": "48a93cb8-a88f-4ce0-af6c-c21eecf26735",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"programDescription\": \"{{ProgramDescription}}\",\r\n  \"programName\": \" \",\r\n  \"programStatus\": \"{{ProgramStatus}}\"\r\n}\r\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{BaseURL}}/saveprogram"
-							},
-							"response": []
-						},
-						{
-							"name": "For Invalid ProgramID",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "e716c8e0-e8ac-4a4c-8de2-594203827674",
-										"exec": [
-											"pm.test(\"Status is Success\",function()",
-											"{",
-											"    pm.response.to.have.status(\"OK\");  ",
-											"})",
-											"pm.test(\"Validate Headers Cookies ResponseTime\" , function()",
-											"{",
-											"    pm.response.to.have.header(\"Content-Type\");",
-											"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");",
-											"",
-											"    pm.expect(pm.response.responseTime).to.be.below(800);",
-											"})"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"id": "7dfb3ec3-77d0-47f3-b1cd-221c385753e9",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{BaseURL}}/programs/:programId",
-									"host": [
-										"{{BaseURL}}"
-									],
-									"path": [
-										"programs",
-										":programId"
-									],
-									"variable": [
-										{
-											"key": "programId",
-											"value": "002345"
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					],
-					"id": "dc9dfd1b-618e-47cd-bb22-6c78c9e1e0b8"
-				},
-				{
 					"name": "Create Program",
 					"event": [
 						{
@@ -311,6 +179,41 @@
 						}
 					],
 					"id": "f44c86c9-2a41-4032-9921-42a45cbf7644",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BaseURL}}/programs/{{program_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "GET one ProgramId-For Invalid ProgramID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e716c8e0-e8ac-4a4c-8de2-594203827674",
+								"exec": [
+									"pm.test(\"Status is Success\",function()",
+									"{",
+									"    pm.response.to.have.status(\"OK\");  ",
+									"})",
+									"pm.test(\"Validate Headers Cookies ResponseTime\" , function()",
+									"{",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");",
+									"",
+									"    pm.expect(pm.response.responseTime).to.be.below(800);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "7dfb3ec3-77d0-47f3-b1cd-221c385753e9",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -2098,193 +2001,193 @@
 	],
 	"variable": [
 		{
-			"id": "03e1b7c7-f8e8-48dd-bbe8-282870e5260b",
+			"id": "5b9934fa-45e4-4daf-9007-0f838f5deaf6",
 			"key": "user_FirstName",
 			"value": ""
 		},
 		{
-			"id": "e3f58deb-5e6d-4f28-b0be-e382f4da45bb",
+			"id": "6a9b4bce-35b9-4752-a9e2-895cc811d09d",
 			"key": "user_LastName",
 			"value": ""
 		},
 		{
-			"id": "3611d82a-1331-42ad-8f5b-f08b408157a2",
+			"id": "44a3f2fd-03f4-4760-8725-b72f41f335a3",
 			"key": "Role_Id",
 			"value": ""
 		},
 		{
-			"id": "0396351d-3681-4b38-972d-ae01bda4c042",
+			"id": "f8dca776-6757-4269-b0ee-4abf30218e71",
 			"key": "user_PhoneNumber",
 			"value": ""
 		},
 		{
-			"id": "084314c2-c88b-41a2-baa1-99e93a57b24c",
+			"id": "72181477-d4a9-4c6e-8f87-6008550e15ea",
 			"key": "user_RoleStatus",
 			"value": ""
 		},
 		{
-			"id": "d0a241a6-abb2-4796-9773-0f72b8fc291f",
+			"id": "4edacd8f-ed5f-4519-988a-1c154605098a",
 			"key": "user_TimeZone",
 			"value": ""
 		},
 		{
-			"id": "606fc7d3-3f26-484f-9512-1ec15a73ff5e",
+			"id": "e0655e6e-ad83-49d3-9e8b-2e8b0473a3bf",
 			"key": "user_VisaStatus",
 			"value": ""
 		},
 		{
-			"id": "d5609d6d-4eb0-4b82-82ac-29ee56989584",
+			"id": "70515927-f2e6-4a86-a163-920231f96294",
 			"key": "user_EduPg",
 			"value": ""
 		},
 		{
-			"id": "ceb44f06-c6e6-4dfe-b49e-a362d29806a6",
+			"id": "9172dbd6-7e14-4cd3-a2af-07c2d8a33dc4",
 			"key": "user_EduUg",
 			"value": ""
 		},
 		{
-			"id": "97a6a74b-c581-4e91-8d57-2bc75761122f",
+			"id": "df9951e5-aaef-4809-bd40-dfd640fabf56",
 			"key": "assignmentdescription",
 			"value": ""
 		},
 		{
-			"id": "668ab6c5-2d68-46d1-b8ad-9df4d8caa775",
+			"id": "7a769ecc-f396-4f1f-bfc2-32e73cde8fb2",
 			"key": "assignment_name",
 			"value": ""
 		},
 		{
-			"id": "fc5c2c5c-1a0f-4c9f-9402-2f7f3f33c09c",
+			"id": "7f659514-dd20-4464-93f8-460f5a049154",
 			"key": "batch_id",
 			"value": "",
 			"disabled": true
 		},
 		{
-			"id": "a9af783d-0e10-45b1-9907-27b173c64795",
+			"id": "059cb295-b83d-4f36-93f2-6cb1ba5cd78a",
 			"key": "comments",
 			"value": ""
 		},
 		{
-			"id": "919b4bbe-7c43-4803-9058-5b8c9ca10fef",
+			"id": "255bd977-5be4-4cfa-ab5e-6206c4cb0fdb",
 			"key": "duedate",
 			"value": ""
 		},
 		{
-			"id": "4c451dec-efc2-4bba-8c83-027e534cc908",
+			"id": "1ac68db0-ac2c-4fba-b8fa-b021f9ccd1d2",
 			"key": "graderId",
 			"value": ""
 		},
 		{
-			"id": "93155026-b8a1-4a17-a9a7-a7f93a7afd54",
+			"id": "94922fb3-d555-46f2-a479-8387e3f47e77",
 			"key": "path1",
 			"value": ""
 		},
 		{
-			"id": "ac5db77d-39a8-4eef-be41-c50bc0385aa2",
+			"id": "5f2be51a-ac31-4c44-a47c-2808cbae6b9e",
 			"key": "path2",
 			"value": ""
 		},
 		{
-			"id": "9d1fd210-17a6-4465-b757-bbe7cf90f49f",
+			"id": "a7f0972f-fb85-4bea-a277-d10b16cb7e2d",
 			"key": "path3",
 			"value": ""
 		},
 		{
-			"id": "41b7a224-4c50-40b7-ba7b-01f2428b19a2",
+			"id": "448203b0-ce75-4e73-a3bd-27ed9951e8e8",
 			"key": "path4",
 			"value": ""
 		},
 		{
-			"id": "30603851-bb79-464c-b0f9-b2a62b5a32b0",
+			"id": "962db837-d3e0-48e8-83e1-1cdce1d0dd7a",
 			"key": "path5",
 			"value": ""
 		},
 		{
-			"id": "be418122-812e-4f2a-9a3f-13dd1e0ff0cc",
+			"id": "158a16ad-33f0-4301-aa22-3da9eb531f4b",
 			"key": "prog_name",
 			"value": ""
 		},
 		{
-			"id": "79f9665f-03d8-4c6e-8a66-d7c68ad51c30",
+			"id": "6dace634-6195-413a-90fc-9179b582a9df",
 			"key": "prog_desc",
 			"value": ""
 		},
 		{
-			"id": "fa17058b-74a8-4b0a-98cb-47c62b82a6e7",
+			"id": "1b72887b-a32e-4005-8035-9897f01b048c",
 			"key": "prog_status",
 			"value": ""
 		},
 		{
-			"id": "3b86a4eb-3f46-49a1-bd9d-423168db2135",
+			"id": "bce77b08-75b2-41ea-8aaf-3da00f63c91d",
 			"key": "batch_name",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "1b20bb91-81b9-4be0-9367-812e3a6ab616",
+			"id": "7173075f-8da3-4335-a8ea-93d7745ba381",
 			"key": "batch_status",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "5acc3bdb-e77e-4c68-beed-87045fbe6d6b",
+			"id": "681534e6-8ebd-4c1e-ab7a-785eb7755a90",
 			"key": "noOf_classes",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "7a82db26-5ef6-48d8-9056-9a6da626c2eb",
+			"id": "fd1cd5ca-ca76-4002-93b9-12bc74bf99f1",
 			"key": "serialNumber",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "f5464d1e-426b-4f1f-82a5-1a0abcb90062",
+			"id": "cdfbb3ee-2b0d-4027-8d53-03d26312e60d",
 			"key": "batch_desc",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "ba22ccc3-707d-4cf8-9a4c-d8d4c1e0a7cc",
+			"id": "07d617d1-6935-4805-9994-193fb1980829",
 			"key": "Role_status",
 			"value": ""
 		},
 		{
-			"id": "fa8e5080-3034-4c06-ad3b-5e49d32c062c",
+			"id": "f254cec9-dfb2-4cbf-9d2c-5b3ebb9d9c74",
 			"key": "Phone_Number",
 			"value": ""
 		},
 		{
-			"id": "11c75874-1cdd-428c-94fe-65324a9d5fc8",
+			"id": "5ed62e7e-1b48-4260-9093-b89f89539939",
 			"key": "submissiondescription",
 			"value": ""
 		},
 		{
-			"id": "adcb8a4d-c43d-4be3-88ab-0c7686406dcf",
+			"id": "88e27943-171d-4010-9210-be768c1af13d",
 			"key": "subcomments",
 			"value": ""
 		},
 		{
-			"id": "d054f119-c368-4b2b-95ed-42233eaffa66",
+			"id": "0adb5061-3d34-4e65-ac66-855de17dc20e",
 			"key": "spath1",
 			"value": ""
 		},
 		{
-			"id": "2f1735f3-7d26-4adf-8bf9-33075265ae87",
+			"id": "75e4579d-f1d1-431b-9bed-d6bfc39402df",
 			"key": "spath2",
 			"value": ""
 		},
 		{
-			"id": "9f6e48e9-c24c-414c-976d-eac3fc3b8d04",
+			"id": "5df2db69-2880-4dc0-82bc-4b7e8d023a5b",
 			"key": "spath3",
 			"value": ""
 		},
 		{
-			"id": "246d68bc-3283-4489-85f9-ee4de8dd5f5a",
+			"id": "7028e641-ba07-4bb8-8cc4-33038d211692",
 			"key": "spath4",
 			"value": ""
 		},
 		{
-			"id": "050a4df1-2106-4290-8317-db91b4cb2820",
+			"id": "331d573f-374a-432b-a5f4-b13c5f861b7e",
 			"key": "spath5",
 			"value": ""
 		}
